@@ -6,6 +6,26 @@
   --body-font: 'Roboto', sans-serif;
   --secondary-font: 'Raleway', sans-serif;
 }
+body{
+  color:white;
+}
+h1 {
+  font-family: var(--logo-font);
+  font-size: 70px;
+  color: white;
+  margin-top: 20px;
+}
+h2 {
+  font-family: var(--secondary-font);
+  color: white;
+}
+p, h2, h3, h4, h5, li {
+  font-family: var(--body-font);
+  color: white;
+}
+.btn-primary {
+  background-color: var(--primary-color);
+}
 .logo {
   margin-left: 10px;
   font-family: var(--logo-font);
@@ -40,4 +60,24 @@
 }
 .height100 {
   height: 100%;
+}
+nav.container-fluid {
+  background: var(--lighter-color);
+}
+section.container-fluid {
+  background: var(--dark-color);
+}
+.popcorn {
+  height: 5em;
+  width: 5em;
+  display: block;
+}
+#showcase {
+  height: 35vh;
+}
+#filters {
+  height: 12vh;
+}
+#search {
+  height: 30vh
 }
