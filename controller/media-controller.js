@@ -23,7 +23,7 @@ const utellyCall = () => {
             //IMDB ID for Movie Database (IMDB Alternative)
             let id = response.results[0].external_ids.imdb.id;
             console.log(mediaName, mediaLocations, id);
-            IDMBcall(id); 
+            IDMBcall(id);
         })
         .catch((error) => {
             console.log(error);
