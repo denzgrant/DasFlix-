@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const user_medium = require("./user_medium");
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
@@ -29,9 +30,15 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.history, {
             onDelete: "cascade"
         });
-        User.hasMany(models.user_media_list, {
+        User.hasMany(models.list, {
             onDelete: "cascade"
         });
+        User.belongsToMany(models.medium, {
+            through: 'user_medium',
+            foreignKey: 'userId',
+            as: 'media'
+        });
+
     };
 
 

@@ -3,13 +3,13 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/api/providers", async(req, res) => {
-    const data = await db.provider.findAll({ include: [db.user] });
+    const data = await db.provider.findAll({ include: [db.medium] });
 
     res.json(data);
 });
 
 router.get("/api/providers/:id", async(req, res) => {
-    const data = await db.provider.findAll({ where: { id: req.params.id }, include: [db.user] });
+    const data = await db.provider.findAll({ where: { id: req.params.id }, include: [db.medium] });
 
     res.json(data);
 });
