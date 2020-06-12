@@ -6,6 +6,9 @@ const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-ac
 const authController = require("./controller/auth-controller");
 const userController = require("./controller/user-controller");
 const historyController = require("./controller/history-controller");
+const mediaController = require("./controller/media-controller");
+const providerController = require("./controller/provider-controller");
+const listController = require("./controller/list-controller");
 
 const db = require("./models");
 
@@ -19,34 +22,38 @@ app.use(express.static("public"));
 
 // Handlebars
 app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main",
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
-  })
+    "handlebars",
+    exphbs({
+        defaultLayout: "main",
+        handlebars: allowInsecurePrototypeAccess(Handlebars)
+    })
 );
 app.set("view engine", "handlebars");
 
 app.use(authController);
 app.use(userController);
 app.use(historyController);
+app.use(mediaController);
+app.use(listController);
+app.use(providerController);
+
 
 const syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
-  syncOptions.force = true;
+    syncOptions.force = true;
 }
 
 // Starting the server, syncing our models ------------------------------------/
-const startServer = async () => {
-  await db.sequelize.sync(syncOptions);
+const startServer = async() => {
+    await db.sequelize.sync(syncOptions);
 
-  app.listen(PORT, () => {
-    // eslint-disable-next-line no-console
-    console.log(`==> 🌎  Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
-  });
+    app.listen(PORT, () => {
+        // eslint-disable-next-line no-console
+        console.log(`==> 🌎  Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
+    });
 };
 
 startServer();
