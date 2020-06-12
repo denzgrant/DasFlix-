@@ -44,3 +44,4 @@ router.get("/api/mediaSearch", async (req, res) => {
 
 });
 
+module.exports = router;
