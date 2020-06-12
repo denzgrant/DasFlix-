@@ -38,7 +38,7 @@ app.use(listController);
 app.use(providerController);
 
 
-const syncOptions = { force: false };
+const syncOptions = { force: false }; //make sure to delete when project is compeleted :D 
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-const startServer = async() => {
+const startServer = async () => {
     await db.sequelize.sync(syncOptions);
 
     app.listen(PORT, () => {
