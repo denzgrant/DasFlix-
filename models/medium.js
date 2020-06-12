@@ -1,6 +1,8 @@
+const list_medium = require("./list_medium");
+
 module.exports = (sequelize, DataTypes) => {
-    const Media = sequelize.define(
-        "media", {
+    const Medium = sequelize.define(
+        "medium", {
             title: {
                 type: DataTypes.STRING,
                 allowNull: false
@@ -20,18 +22,28 @@ module.exports = (sequelize, DataTypes) => {
             icon: {
                 type: DataTypes.STRING,
                 allowNull: false
-            }
+            },
+
         }, {
             underscored: true,
             freezeTableName: true
         }
     );
 
-    Media.associate = models => {
-        Media.hasMany(models.user_media_list, {
-            onDelete: "cascade"
+    Medium.associate = models => {
+        Medium.belongsToMany(models.list, {
+            through: "list_medium",
+            foreignKey: 'mediumId',
+            as: 'lists'
         });
+
+        Medium.belongsTo(models.provider, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+
     };
 
-    return Media;
+    return Medium;
 };

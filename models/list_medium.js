@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const MediaProvider = sequelize.define(
-        "media_provider", {
+    const ListMedium = sequelize.define(
+        "list_medium", {
 
         }, {
             underscored: true,
@@ -8,18 +8,21 @@ module.exports = (sequelize, DataTypes) => {
         }
     );
 
-    MediaProvider.associate = (models) => {
-        MediaProvider.belongsTo(models.provider, {
+
+    ListMedium.associate = (models) => {
+        ListMedium.belongsTo(models.list, {
             foreignKey: {
                 allowNull: false
             }
         });
-        MediaProvider.belongsTo(models.media, {
+        ListMedium.belongsTo(models.medium, {
             foreignKey: {
                 allowNull: false
             }
         });
     };
 
-    return MediaProvider;
+
+
+    return ListMedium;
 };

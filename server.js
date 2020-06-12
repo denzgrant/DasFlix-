@@ -6,7 +6,7 @@ const { allowInsecurePrototypeAccess } = require("@handlebars/allow-prototype-ac
 const authController = require("./controller/auth-controller");
 const userController = require("./controller/user-controller");
 const historyController = require("./controller/history-controller");
-const mediaController = require("./controller/media-controller");
+const mediumController = require("./controller/medium-controller");
 const providerController = require("./controller/provider-controller");
 const listController = require("./controller/list-controller");
 
@@ -33,7 +33,7 @@ app.set("view engine", "handlebars");
 app.use(authController);
 app.use(userController);
 app.use(historyController);
-app.use(mediaController);
+app.use(mediumController);
 app.use(listController);
 app.use(providerController);
 
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "test") {
 }
 
 // Starting the server, syncing our models ------------------------------------/
-const startServer = async () => {
+const startServer = async() => {
     await db.sequelize.sync(syncOptions);
 
     app.listen(PORT, () => {

@@ -14,12 +14,10 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true
         }
     );
-
     Provider.associate = models => {
-        Provider.hasMany(models.media_provider, {
+        Provider.hasMany(models.medium, {
             onDelete: "cascade"
         });
     };
-
     return Provider;
 };

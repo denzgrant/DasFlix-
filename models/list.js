@@ -12,9 +12,18 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     List.associate = models => {
-        List.hasMany(models.user_media_list, {
-            onDelete: "cascade"
+
+        List.belongsTo(models.user, {
+            foreignKey: {
+                allowNull: false
+            }
         });
+        List.belongsToMany(models.medium, {
+            through: 'list_medium',
+            foreignKey: 'listId',
+            as: 'media'
+        });
+
     };
 
     return List;

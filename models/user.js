@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 
+
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         "user", {
@@ -29,9 +30,11 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(models.history, {
             onDelete: "cascade"
         });
-        User.hasMany(models.user_media_list, {
+        User.hasMany(models.list, {
             onDelete: "cascade"
         });
+
+
     };
 
 
