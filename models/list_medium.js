@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    const UserMedium = sequelize.define(
-        "user_medium", {
+    const ListMedium = sequelize.define(
+        "list_medium", {
 
         }, {
             underscored: true,
@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     );
 
 
-    UserMedium.associate = (models) => {
-        UserMedium.belongsTo(models.user, {
+    ListMedium.associate = (models) => {
+        ListMedium.belongsTo(models.list, {
             foreignKey: {
                 allowNull: false
             }
         });
-        UserMedium.belongsTo(models.medium, {
+        ListMedium.belongsTo(models.medium, {
             foreignKey: {
                 allowNull: false
             }
@@ -24,5 +24,5 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-    return UserMedium;
+    return ListMedium;
 };

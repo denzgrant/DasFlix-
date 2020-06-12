@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false
             }
         });
+        List.belongsToMany(models.medium, {
+            through: 'list_medium',
+            foreignKey: 'listId',
+            as: 'media'
+        });
 
     };
 

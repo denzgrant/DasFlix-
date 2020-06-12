@@ -18,13 +18,13 @@ router.get("/api/media/:id", async(req, res) => {
 router.post("/api/media",
     //  passport.authenticate("jwt", { session: false }),
     async(req, res) => {
-        const userID = req.body.userId;
-        if (!userID) {
-            res.status(400).send({ error: "missing userId" });
+        const listID = req.body.listId;
+        if (!listID) {
+            res.status(400).send({ error: "missing listId" });
         }
         const medium = await db.medium.create(req.body);
-        const user_medium = await db.user_medium.create({ mediumId: medium.id, userId: userID });
-        res.json(user_medium);
+        const list_medium = await db.list_medium.create({ mediumId: medium.id, listId: listID });
+        res.json(list_medium);
     });
 
 router.delete("/api/media/:id", async(req, res) => {

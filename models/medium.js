@@ -1,4 +1,4 @@
-const user_medium = require("./user_medium");
+const list_medium = require("./list_medium");
 
 module.exports = (sequelize, DataTypes) => {
     const Medium = sequelize.define(
@@ -31,10 +31,10 @@ module.exports = (sequelize, DataTypes) => {
     );
 
     Medium.associate = models => {
-        Medium.belongsToMany(models.user, {
-            through: "user_medium",
+        Medium.belongsToMany(models.list, {
+            through: "list_medium",
             foreignKey: 'mediumId',
-            as: 'users'
+            as: 'lists'
         });
 
         Medium.belongsTo(models.provider, {
