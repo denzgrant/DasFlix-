@@ -126,3 +126,6 @@ section.container-fluid {
   color: white;
   transform: rotateY(180deg);
 }
+#placeholder {
+  height: 87vh;
+}
