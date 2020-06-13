@@ -9,6 +9,7 @@ const historyController = require("./controller/history-controller");
 const mediumController = require("./controller/medium-controller");
 const providerController = require("./controller/provider-controller");
 const listController = require("./controller/list-controller");
+const thirdPartyController = require("./controller/third_api-controller");
 
 const db = require("./models");
 
@@ -22,11 +23,11 @@ app.use(express.static("public"));
 
 // Handlebars
 app.engine(
-    "handlebars",
-    exphbs({
-        defaultLayout: "main",
-        handlebars: allowInsecurePrototypeAccess(Handlebars)
-    })
+  "handlebars",
+  exphbs({
+    defaultLayout: "main",
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+  })
 );
 app.set("view engine", "handlebars");
 
@@ -36,24 +37,24 @@ app.use(historyController);
 app.use(mediumController);
 app.use(listController);
 app.use(providerController);
+app.use(thirdPartyController);
 
-
-const syncOptions = { force: false }; //make sure to delete when project is compeleted :D 
+const syncOptions = { force: false }; //make sure to delete when project is compeleted :D
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 if (process.env.NODE_ENV === "test") {
-    syncOptions.force = true;
+  syncOptions.force = true;
 }
 
 // Starting the server, syncing our models ------------------------------------/
-const startServer = async() => {
-    await db.sequelize.sync(syncOptions);
+const startServer = async () => {
+  await db.sequelize.sync(syncOptions);
 
-    app.listen(PORT, () => {
-        // eslint-disable-next-line no-console
-        console.log(`==> 🌎  Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
-    });
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`==> 🌎  Listening on port ${PORT}. Visit http://localhost:${PORT}/ in your browser.`);
+  });
 };
 
 startServer();
