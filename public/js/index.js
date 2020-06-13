@@ -107,11 +107,8 @@ $("#submit").on("click", function () {
           Year Released: ${mediaYear}\n
           Plot: ${mediaPlot}</p>
           <strong>Available on ${mediaLocations}</strong>`);
-
-    }
-    else {
-      //prompt an error message 
-
+    } else {
+      //prompt an error message
     }
   });
 });
