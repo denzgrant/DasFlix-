@@ -92,6 +92,26 @@ var handleDeleteBtnClick = function () {
   });
 };
 
-// Add event listeners to the submit and delete buttons
+$("#search-btn").on("click", function () {
+  event.preventDefault();
+  const searchedMedia = $("#media-search").val().trim().toLowerCase();
+
+  $.get(`/api/media-search/${searchedmedia}`, function (data) {
+    console.log(data);
+    if (data) {
+      $(".flip-card-front").append(`
+        <img src="${mediaPoster}" alt="poster of movie/tv">`);
+      $(".flip-card-back").append(`
+          <h1>${mediaTitle}</h1>
+          <p>Type ${mediaType}\n
+          Year Released: ${mediaYear}\n
+          Plot: ${mediaPlot}</p>
+          <strong>Available on ${mediaLocations}</strong>`);
+    } else {
+      //prompt an error message
+    }
+  });
+});
+
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
