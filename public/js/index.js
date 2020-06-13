@@ -92,9 +92,9 @@ var handleDeleteBtnClick = function () {
   });
 };
 
-$("#search-btn").on("click", function () {
+$("#submit").on("click", function () {
   event.preventDefault();
-  const searchedMedia = $("#media-search").val().trim().toLowerCase();
+  const searchedMedia = $("#submit-query").val().trim().toLowerCase();
 
   $.get(`/api/media-search/${searchedmedia}`, function (data) {
     console.log(data);
