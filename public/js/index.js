@@ -1,8 +1,4 @@
-// const { response } = require("express");
 
-// // Get references to page elements
-// var $exampleText = $("#example-text");
-// var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
 // var $exampleList = $("#example-list");
 
@@ -34,66 +30,6 @@ var $submitBtn = $("#submit");
 //   },
 // };
 
-// // refreshExamples gets new examples from the db and repopulates the list
-// var refreshExamples = function () {
-//   API.getExamples().then(function (data) {
-//     var $examples = data.map(function (example) {
-//       var $a = $("<a>")
-//         .text(example.text)
-//         .attr("href", "/example/" + example.id);
-
-//       var $li = $("<li>")
-//         .attr({
-//           class: "list-group-item",
-//           "data-id": example.id,
-//         })
-//         .append($a);
-
-//       var $button = $("<button>").addClass("btn btn-danger float-right delete").text("ｘ");
-
-//       $li.append($button);
-
-//       return $li;
-//     });
-
-//     $exampleList.empty();
-//     $exampleList.append($examples);
-//   });
-// };
-
-// // handleFormSubmit is called whenever we submit a new example
-// // Save the new example to the db and refresh the list
-// var handleFormSubmit = function (event) {
-//   event.preventDefault();
-
-//   var example = {
-//     text: $exampleText.val().trim(),
-//     description: $exampleDescription.val().trim(),
-//   };
-
-//   if (!(example.text && example.description)) {
-//     alert("You must enter an example text and description!");
-//     return;
-//   }
-
-//   API.saveExample(example).then(function () {
-//     refreshExamples();
-//   });
-
-//   $exampleText.val("");
-//   $exampleDescription.val("");
-// };
-
-// // handleDeleteBtnClick is called when an example's delete button is clicked
-// // Remove the example from the db and refresh the list
-// var handleDeleteBtnClick = function () {
-//   var idToDelete = $(this).parent().attr("data-id");
-
-//   API.deleteExample(idToDelete).then(function () {
-//     refreshExamples();
-//   });
-// };
-
 //$("#submit").on("click", function () {
 //   event.preventDefault();
 //   const searchedMedia = $("#submit-query").val().trim().toLowerCase();
@@ -117,71 +53,110 @@ var $submitBtn = $("#submit");
 
 $(document).ready(() => {
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//3 party API call
-/////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //3 party API call
+  /////////////////////////////////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//Example call
-/////////////////////////////////////////////////////////////////////////////////////////
-let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Example call
+  /////////////////////////////////////////////////////////////////////////////////////////
 
-let data;
+  // function queryThirdPartyAPI() {
+  //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
 
-function queryThirdPartyAPI() {
- $.ajax({
-    url: queryURL,
-    method: "GET",
-  })
-    // After the data comes back from the API
-    .then((response) => {
-      console.log(response);
-      $("#theData").text(response.mediaPlot);
-    });
-}
-
-data = queryThirdPartyAPI();;
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//Produce 10 popular titles 
-/////////////////////////////////////////////////////////////////////////////////////////
+  //   let data;
+  //   $.ajax({
+  //     url: queryURL,
+  //     method: "GET",
+  //   })
+  //     // After the data comes back from the API
+  //     .then((response) => {
+  //       console.log(response);
+  //       $("#theData").text(response.mediaPlot);
+  //     });
+  //   }
+  //   data = queryThirdPartyAPI();
 
 
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 popular titles 
+  /////////////////////////////////////////////////////////////////////////////////////////
+  let queryTrending = () => {
+    let queryURL = `http://localhost:8080/api/trending/`;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-//Produce 10 titles based on a query
-/////////////////////////////////////////////////////////////////////////////////////////
+    let data;
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    })
+      // After the data comes back from the API
+      .then((response) => {
+        console.log(response);
+        $("#theData").text(response.mediaTitle);
+      });
+  }
+  queryTrending();
 
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//Produce 10 titles tv show only
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-//Produce 10 titles movies only
-/////////////////////////////////////////////////////////////////////////////////////////
-
-
-/***************************************************************************************/
-//-	Delete entire watchlist
-/***************************************************************************************/
-
-
-/***************************************************************************************/
-//-	Delete a movie/show of a watchlist with an id
-/***************************************************************************************/
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 titles based on a query
+  /////////////////////////////////////////////////////////////////////////////////////////
 
 
-/***************************************************************************************/
-//-	Create a list
-/***************************************************************************************/
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 titles tv show only
+  /////////////////////////////////////////////////////////////////////////////////////////
+  let tenShows = () => {
+    let queryURL = `http://localhost:8080/api/tenShows/`;
+
+    let data;
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    })
+  
+      .then((response) => {
+        console.log(response);
+        $("#theData").text(response.mediaTitle);
+      });
+  }
+  tenShows();
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 titles movies only
+  /////////////////////////////////////////////////////////////////////////////////////////
 
 
-/***************************************************************************************/
-//-	Create a movie (to put inside of list)
-/***************************************************************************************/
+  /***************************************************************************************/
+  //-	Delete entire watchlist
+  /***************************************************************************************/
+
+
+  /***************************************************************************************/
+  //-	Delete a movie/show of a watchlist with an id
+  /***************************************************************************************/
+  $(".media-delete").on("click", function (event) {
+    var id = $(this).data("id");
+    // Send the DELETE request.
+    $.ajax("/api/media/" + id, {
+      type: "DELETE"
+    }).then(
+      function () {
+        console.log("List was deleted");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+
+  /***************************************************************************************/
+  //-	Create a list
+  /***************************************************************************************/
+
+
+  /***************************************************************************************/
+  //-	Create a movie (to put inside of list)
+  /***************************************************************************************/
 
 
 
@@ -191,3 +166,4 @@ data = queryThirdPartyAPI();;
 
 //$submitBtn.on("click", handleFormSubmit);
 //$exampleList.on("click", ".delete", handleDeleteBtnClick)
+
