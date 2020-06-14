@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-//Network request communicates backend with frontend. Send Back JSON or Handlebars page. Jquery request in Handlebars page
 router.get("/api/mediaSearch/:searchTerm", async (req, res) => {
   try {
     const firstData = await axios.get("https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/lookup", {
