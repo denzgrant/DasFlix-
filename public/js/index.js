@@ -1,4 +1,3 @@
-
 var $submitBtn = $("#submit");
 // var $exampleList = $("#example-list");
 
@@ -52,7 +51,6 @@ var $submitBtn = $("#submit");
 // });
 
 $(document).ready(() => {
-
   /////////////////////////////////////////////////////////////////////////////////////////
   //3 party API call
   /////////////////////////////////////////////////////////////////////////////////////////
@@ -77,9 +75,8 @@ $(document).ready(() => {
   //   }
   //   data = queryThirdPartyAPI();
 
-
   /////////////////////////////////////////////////////////////////////////////////////////
-  //Produce 10 popular titles 
+  //Produce 10 popular titles
   /////////////////////////////////////////////////////////////////////////////////////////
   let queryTrending = () => {
     let queryURL = `http://localhost:8080/api/trending/`;
@@ -92,15 +89,36 @@ $(document).ready(() => {
       // After the data comes back from the API
       .then((response) => {
         console.log(response);
-        $("#theData").text(response.mediaTitle);
+        let movieArray = response.media;
+        movieArray.forEach((movie) => {
+          let thisMovieCard = `
+<li>
+<div class="flip-card">
+<div class="flip-card-inner">
+  <div class="flip-card-front">
+      <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+  </div>
+  <div class="flip-card-back">
+      <h2> ${movie.title} </h2>
+      <p> ${movie.overview} </p>
+      <button></button>
+  </div>
+</div>
+</div>
+<div class="uk-position-center uk-panel">
+</div>
+</li>
+`;
+          $("#bottom-movie-list").append(thisMovieCard);
+        });
+        //$("#theData").text(response.mediaTitle);
       });
-  }
+  };
   queryTrending();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles based on a query
   /////////////////////////////////////////////////////////////////////////////////////////
-
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles tv show only
@@ -112,24 +130,20 @@ $(document).ready(() => {
     $.ajax({
       url: queryURL,
       method: "GET",
-    })
-  
-      .then((response) => {
-        console.log(response);
-        $("#theData").text(response.mediaTitle);
-      });
-  }
+    }).then((response) => {
+      console.log(response);
+      $("#theData").text(response.mediaTitle);
+    });
+  };
   tenShows();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles movies only
   /////////////////////////////////////////////////////////////////////////////////////////
 
-
   /***************************************************************************************/
   //-	Delete entire watchlist
   /***************************************************************************************/
-
 
   /***************************************************************************************/
   //-	Delete a movie/show of a watchlist with an id
@@ -138,32 +152,22 @@ $(document).ready(() => {
     var id = $(this).data("id");
     // Send the DELETE request.
     $.ajax("/api/media/" + id, {
-      type: "DELETE"
-    }).then(
-      function () {
-        console.log("List was deleted");
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
+      type: "DELETE",
+    }).then(function () {
+      console.log("List was deleted");
+      // Reload the page to get the updated list
+      location.reload();
+    });
   });
-
 
   /***************************************************************************************/
   //-	Create a list
   /***************************************************************************************/
 
-
   /***************************************************************************************/
   //-	Create a movie (to put inside of list)
   /***************************************************************************************/
-
-
-
-
 });
-
 
 //$submitBtn.on("click", handleFormSubmit);
 //$exampleList.on("click", ".delete", handleDeleteBtnClick)
-
