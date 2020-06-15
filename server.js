@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
 
-
+//Watch list route 
 app.get("/watchlists", (req, res) => {
   res.render("watchlists");
 });
