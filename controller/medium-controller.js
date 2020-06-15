@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
-const app = express();
 
-app.get("/watchlists", (req, res) => {
-    res.render("watchlists");
-});
 
 router.get("/api/media", async (req, res) => {
 
