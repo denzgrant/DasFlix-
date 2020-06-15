@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === "test") {
 
 
 app.get("/watchlists", (req, res) => {
-    res.render("watchlists");
+  res.render("watchlists");
 });
 
 // Starting the server, syncing our models ------------------------------------/
