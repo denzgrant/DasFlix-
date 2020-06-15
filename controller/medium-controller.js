@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../models");
+const db = require("../models/medium.js");
 
+//Watch list route 
+router.get("/watchlists", async (req, res) => {
+    // const data = await db.findAll(); 
+
+    res.render("watchlists");// { Medium: data } still need to render data on handlebars page
+
+});
 
 router.get("/api/media", async (req, res) => {
 

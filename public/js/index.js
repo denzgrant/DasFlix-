@@ -29,51 +29,10 @@ var $submitBtn = $("#submit");
 //   },
 // };
 
-//$("#submit").on("click", function () {
-//   event.preventDefault();
-//   const searchedMedia = $("#submit-query").val().trim().toLowerCase();
-
-//   $.get(`/api/media-search/${searchedmedia}`, function (data) {
-//     console.log(data);
-//     if (data) {
-//       $(".flip-card-front").append(`
-//         <img src="${mediaPoster}" alt="poster of movie/tv">`);
-//       $(".flip-card-back").append(`
-//           <h1>${mediaTitle}</h1>
-//           <p>Type ${mediaType}\n
-//           Year Released: ${mediaYear}\n
-//           Plot: ${mediaPlot}</p>
-//           <strong>Available on ${mediaLocations}</strong>`);
-//     } else {
-//       //prompt an error message
-//     }
-//   });
-// });
-
 $(document).ready(() => {
   /////////////////////////////////////////////////////////////////////////////////////////
   //3 party API call
   /////////////////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////////////////
-  //Example call
-  /////////////////////////////////////////////////////////////////////////////////////////
-
-  // function queryThirdPartyAPI() {
-  //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
-
-  //   let data;
-  //   $.ajax({
-  //     url: queryURL,
-  //     method: "GET",
-  //   })
-  //     // After the data comes back from the API
-  //     .then((response) => {
-  //       console.log(response);
-  //       $("#theData").text(response.mediaPlot);
-  //     });
-  //   }
-  //   data = queryThirdPartyAPI();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 popular titles
@@ -89,8 +48,8 @@ $(document).ready(() => {
       // After the data comes back from the API
       .then((response) => {
         console.log(response);
-        let movieArray = response.media;
-        movieArray.forEach((movie) => {
+        let tvArr = response.media;
+        tvArr.forEach((movie) => {
           let thisMovieCard = `
 <li>
 <div class="flip-card">
@@ -111,18 +70,31 @@ $(document).ready(() => {
 `;
           $("#bottom-movie-list").append(thisMovieCard);
         });
-        //$("#theData").text(response.mediaTitle);
       });
   };
   queryTrending();
 
-  /////////////////////////////////////////////////////////////////////////////////////////
-  //Produce 10 titles based on a query
-  /////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  // //Produce 10 titles based on a query
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  // function queryThirdPartyAPI() {
+  //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
 
-  /////////////////////////////////////////////////////////////////////////////////////////
-  //Produce 10 titles tv show only
-  /////////////////////////////////////////////////////////////////////////////////////////
+  //   let data;
+  //   $.ajax({
+  //     url: queryURL,
+  //     method: "GET",
+  //   })
+  //     // After the data comes back from the API
+  //     .then((response) => {
+  //       console.log(response);
+  //       $("#theData").text(response.mediaPlot);
+  //     });
+  //   }
+  //   data = queryThirdPartyAPI();
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  ////Produce 10 titles tv show only
+  ///////////////////////////////////////////////////////////////////////////////////////////
   let tenShows = () => {
     let queryURL = `http://localhost:8080/api/tenShows/`;
 
@@ -131,16 +103,72 @@ $(document).ready(() => {
       url: queryURL,
       method: "GET",
     }).then((response) => {
-      console.log(response);
-      $("#theData").text(response.mediaTitle);
+      let tvArr = response.media;
+      console.log(tvArr);
+      for (const tv of tvArr) {
+        let thisTvCard = `
+  <li>
+  <div class="flip-card">
+  <div class="flip-card-inner">
+  <div class="flip-card-front">
+      <img src="http://image.tmdb.org/t/p/w185//${tv.poster_path}" alt="${tv.title}">
+  </div>
+  <div class="flip-card-back">
+      <h2> ${tv.name} </h2>
+      <p> ${tv.overview} </p>
+      <button></button>
+  </div>
+  </div>
+  </div>
+  <div class="uk-position-center uk-panel">
+  </div>
+  </li>
+  `;
+        $("#bottom-movie-list").append(thisTvCard);
+      }
     });
-  };
+  }
   tenShows();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles movies only
   /////////////////////////////////////////////////////////////////////////////////////////
+  let tenMovies = () => {
+    let queryURL = `http://localhost:8080/api/tenMovies/`;
 
+    let data;
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    }).then((response) => {
+      let movArr = response.media;
+      console.log(movArr);
+      for (let i = 0; i < movArr.length; i++) {
+        const movies = movArr[i];
+        let thisMovCard = `
+  <li>
+  <div class="flip-card">
+  <div class="flip-card-inner">
+  <div class="flip-card-front">
+      <img src="http://image.tmdb.org/t/p/w185//${movies.poster_path}" alt="${movies.title}">
+  </div>
+  <div class="flip-card-back">
+      <h2> ${movies.title} </h2>
+      <p> ${movies.overview} </p>
+      <button></button>
+  </div>
+  </div>
+  </div>
+  <div class="uk-position-center uk-panel">
+  </div>
+  </li>
+  `;
+        $("#bottom-movie-list").append(thisMovCard);
+      }
+      
+    });
+  };
+  tenMovies();
   /***************************************************************************************/
   //-	Delete entire watchlist
   /***************************************************************************************/
