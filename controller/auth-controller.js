@@ -14,7 +14,7 @@ router.use(
     cookie: { maxAge: 60000 },
     secret: "wootwoot",
     saveUninitialized: true,
-    resave: true
+    resave: true,
   })
 );
 router.use(flash());
@@ -42,15 +42,15 @@ router.post(
   "/login",
   passport.authenticate("local-login", {
     failureRedirect: "/login",
-    failureFlash: true
+    failureFlash: true,
   }),
   (req, res) => {
     const payload = {
       email: req.user.email,
-      expires: Date.now() + parseInt(60000)
+      expires: Date.now() + parseInt(60000),
     };
 
-    req.login(payload, { session: false }, error => {
+    req.login(payload, { session: false }, (error) => {
       if (error) {
         res.status(400).send({ error });
       }
@@ -72,14 +72,14 @@ router.post(
   passport.authenticate("local-signup", {
     successRedirect: "/",
     failureRedirect: "/signup",
-    failureFlash: true
+    failureFlash: true,
   })
 );
 
 router.get("/logout", async (req, res) => {
   const record = {
     status: "LogOut",
-    userId: req.user.dataValues.id
+    userId: req.user.dataValues.id,
   };
 
   await db.history.create(record);
