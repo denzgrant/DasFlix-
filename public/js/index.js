@@ -1,28 +1,25 @@
 $(document).ready(() => {
-    function wait() {
-        let slider = document.querySelector(".glide");
 
-        let glide = new Glide(slider, {
-            type: "carousel",
-            autoplay: 3500,
-            perView: 6,
-        });
+  function wait() {
+    let glide = new Glide(".showcase", {
+      type: "carousel",
+      autoplay: 3500,
+      perView: 6,
+    });
 
-        glide.mount();
-    }
+    let glide2 = new Glide(".search", {
+      type: "carousel",
+      autoplay: 3500,
+      perView: 6,
+    });
 
-    setTimeout(wait, 1000);
+    glide.mount();
+    glide2.mount();
+  }
 
-    // new Glide('#glide1', {
-    // 	type: 'carousel',
-    // 	perView: 3,
-    // 	breakpoints: {
-    // 		800: {
-    // 			perView: 1
-    // 		}
-    // 	}
-    // }).mount();
-    //let $submitBtn = $("#submit");
+  setTimeout(wait, 2000);
+
+  //let $submitBtn = $("#submit");
 
     // var $exampleList = $("#example-list");
 
@@ -79,14 +76,15 @@ $(document).ready(() => {
     //3 party API call
     /////////////////////////////////////////////////////////////////////////////////////////
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-    //Produce 10 popular titles
-    /////////////////////////////////////////////////////////////////////////////////////////
-    let queryTrending = () => {
-        let queryURL = `http://localhost:8080/api/trending/`;
-        let data;
-        let glideContainer = `      
-    <div class="glide">
+  
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 popular titles
+  /////////////////////////////////////////////////////////////////////////////////////////
+  let queryTrending = () => {
+    let queryURL = `http://localhost:8080/api/trending/`;
+    let data;
+    let glideContainer = `      
+    <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-bottom-list">        
       </ul>
@@ -126,26 +124,26 @@ $(document).ready(() => {
     // function queryThirdPartyAPI() {
     //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
 
-    //   let data;
-    //   $.ajax({
-    //     url: queryURL,
-    //     method: "GET",
-    //   })
-    //     // After the data comes back from the API
-    //     .then((response) => {
-    //       console.log(response);
-    //       $("#theData").text(response.mediaPlot);
-    //     });
-    //   }
-    //   data = queryThirdPartyAPI();
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    ////Produce 10 titles tv show only
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    let tenShows = () => {
-        let queryURL = `http://localhost:8080/api/tenShows/`;
-        let data;
-        let glideContainer = `      
-    <div class="glide">
+  //   let data;
+  //   $.ajax({
+  //     url: queryURL,
+  //     method: "GET",
+  //   })
+  //     // After the data comes back from the API
+  //     .then((response) => {
+  //       console.log(response);
+  //       $("#theData").text(response.mediaPlot);
+  //     });
+  //   }
+  //   data = queryThirdPartyAPI();
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  ////Produce 10 titles tv show only
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  let tenShows = () => {
+    let queryURL = `http://localhost:8080/api/tenShows/`;
+    let data;
+    let glideContainer = `      
+    <div class="glide search">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-top-list">        
       </ul>
