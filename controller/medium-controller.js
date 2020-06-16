@@ -24,7 +24,27 @@ router.post("/api/media",
         if (!listID) {
             res.status(400).send({ error: "missing listId" });
         }
-        const medium = await db.medium.create(req.body);
+        const providerName = req.body.provider;
+        if (!providerName) {
+            res.status(400).send({ error: "missing providerName" });
+        }
+        const provider = await db.provider.findOne({ where: { name: providerName } });
+        if (!provider) {
+            res.status(400).send({
+                error: `couldn't find provider ${providerName}`
+            });
+        }
+        const movie = {
+            "title": req.body.title,
+            "media_type": req.body.media_type,
+            "external_id": req.body.external_id,
+            "summary": req.body.summary,
+            "icon": req.body.icon,
+            "listId": req.body.listId,
+            "providerId": provider.id
+        };
+
+        const medium = await db.medium.create(movie);
         const list_medium = await db.list_medium.create({ mediumId: medium.id, listId: listID });
         res.json(list_medium);
     });
