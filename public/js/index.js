@@ -1,15 +1,14 @@
 $(document).ready(() => {
-
-  function wait(){
+  function wait() {
     let slider = document.querySelector(".glide");
-    
-      let glide = new Glide(slider, {
-        type: "carousel",
-        autoplay: 3500,
-        perView: 6,
-      });
-    
-      glide.mount();
+
+    let glide = new Glide(slider, {
+      type: "carousel",
+      autoplay: 3500,
+      perView: 6,
+    });
+
+    glide.mount();
   }
 
   setTimeout(wait, 1000);
@@ -94,7 +93,7 @@ $(document).ready(() => {
     </div>
   </div>
 `;
-$("#search").append(glideContainer);
+    $("#search").append(glideContainer);
 
     $.ajax({
       url: queryURL,
@@ -115,7 +114,7 @@ $("#search").append(glideContainer);
   </div>
 </li>
 `;
-          $("#movie-bottom-list").append(thisMovieCard);
+          $("#movie-bottom-list").prepend(thisMovieCard);
         });
       });
   };
@@ -144,38 +143,84 @@ $("#search").append(glideContainer);
   ///////////////////////////////////////////////////////////////////////////////////////////
   let tenShows = () => {
     let queryURL = `http://localhost:8080/api/tenShows/`;
-
     let data;
+    let glideContainer = `      
+    <div class="glide">
+    <div class="glide__track" data-glide-el="track">
+      <ul class="glide__slides" id="movie-top-list">        
+      </ul>
+    </div>
+  </div>
+`;
+    $("#showcase").append(glideContainer);
+
     $.ajax({
       url: queryURL,
       method: "GET",
-    }).then((response) => {
-      let tvArr = response.media;
-      console.log(tvArr);
-      for (const tv of tvArr) {
-        let thisTvCard = `
-  <li>
-  <div class="flip-card">
-  <div class="flip-card-inner">
-  <div class="flip-card-front">
-      <img src="http://image.tmdb.org/t/p/w185//${tv.poster_path}" alt="${tv.title}">
-  </div>
+    })
+      // After the data comes back from the API
+      .then((response) => {
+        console.log(response);
+        let movieArray = response.media;
+        movieArray.forEach((movie) => {
+          let thisMovieCard = `
+<li class="glide__slide">
+<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
   <div class="flip-card-back">
-      <h2> ${tv.name} </h2>
-      <p> ${tv.overview} </p>
+      <h2> ${movie.title} </h2>
+      <p> ${movie.overview} </p>
       <button></button>
   </div>
-  </div>
-  </div>
-  <div class="uk-position-center uk-panel">
-  </div>
-  </li>
-  `;
-        $("#bottom-movie-list").append(thisTvCard);
-      }
-    });
-  }
-  tenShows();
+</li>
+`;
+          $("#movie-top-list").prepend(thisMovieCard);
+        });
+        //$("#theData").text(response.mediaTitle);
+      });
+  };
+  //tenShows();
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 titles based on a query
+  /////////////////////////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //Produce 10 titles tv show only
+  /////////////////////////////////////////////////////////////////////////////////////////
+  //   let tenShows = () => {
+  //     let queryURL = `http://localhost:8080/api/tenShows/`;
+  //     let glideContainer = `
+  //     <div class="glide">
+  //     <div class="glide__track" data-glide-el="track">
+  //       <ul class="glide__slides" id="movie-top-list">
+  //       </ul>
+  //     </div>
+  //   </div>
+  // `;
+  //     $("#showcase").append(glideContainer);
+  //     let data;
+  //     $.ajax({
+  //       url: queryURL,
+  //       method: "GET".then((response) => {
+  //         console.log(response);
+  //         let movieArray = response.media;
+  //         movieArray.forEach((movie) => {
+  //           let thisMovieCard = `
+  // <li class="glide__slide">
+  // <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+  //   <div class="flip-card-back">
+  //       <h2> ${movie.title} </h2>
+  //       <p> ${movie.overview} </p>
+  //       <button></button>
+  //   </div>
+  // </li>
+  // `;
+  //           $("#movie-top-list").append(thisMovieCard);
+  //         });
+  //       }),
+  //     });
+  //   };
+  //   tenShows();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles movies only
@@ -212,7 +257,6 @@ $("#search").append(glideContainer);
   `;
         $("#bottom-movie-list").append(thisMovCard);
       }
-      
     });
   };
   tenMovies();
