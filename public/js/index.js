@@ -181,7 +181,7 @@ $(document).ready(() => {
         //$("#theData").text(response.mediaTitle);
       });
   };
-  tenShows();
+  //tenShows();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles based on a query
