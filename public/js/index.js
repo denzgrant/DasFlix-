@@ -1,25 +1,25 @@
 $(document).ready(() => {
 
-  function wait() {
-    let glide = new Glide(".showcase", {
-      type: "carousel",
-      autoplay: 3500,
-      perView: 6,
-    });
+    function wait() {
+        let glide = new Glide(".showcase", {
+            type: "carousel",
+            autoplay: 3500,
+            perView: 6,
+        });
 
-    let glide2 = new Glide(".search", {
-      type: "carousel",
-      autoplay: 3500,
-      perView: 6,
-    });
+        let glide2 = new Glide(".search", {
+            type: "carousel",
+            autoplay: 3500,
+            perView: 6,
+        });
 
-    glide.mount();
-    glide2.mount();
-  }
+        glide.mount();
+        glide2.mount();
+    }
 
-  setTimeout(wait, 2000);
+    setTimeout(wait, 2000);
 
-  //let $submitBtn = $("#submit");
+    //let $submitBtn = $("#submit");
 
     // var $exampleList = $("#example-list");
 
@@ -76,14 +76,14 @@ $(document).ready(() => {
     //3 party API call
     /////////////////////////////////////////////////////////////////////////////////////////
 
-  
-  /////////////////////////////////////////////////////////////////////////////////////////
-  //Produce 10 popular titles
-  /////////////////////////////////////////////////////////////////////////////////////////
-  let queryTrending = () => {
-    let queryURL = `http://localhost:8080/api/trending/`;
-    let data;
-    let glideContainer = `      
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    //Produce 10 popular titles
+    /////////////////////////////////////////////////////////////////////////////////////////
+    let queryTrending = () => {
+        let queryURL = `http://localhost:8080/api/trending/`;
+        let data;
+        let glideContainer = `      
     <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-bottom-list">        
@@ -124,25 +124,25 @@ $(document).ready(() => {
     // function queryThirdPartyAPI() {
     //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
 
-  //   let data;
-  //   $.ajax({
-  //     url: queryURL,
-  //     method: "GET",
-  //   })
-  //     // After the data comes back from the API
-  //     .then((response) => {
-  //       console.log(response);
-  //       $("#theData").text(response.mediaPlot);
-  //     });
-  //   }
-  //   data = queryThirdPartyAPI();
-  ///////////////////////////////////////////////////////////////////////////////////////////
-  ////Produce 10 titles tv show only
-  ///////////////////////////////////////////////////////////////////////////////////////////
-  let tenShows = () => {
-    let queryURL = `http://localhost:8080/api/tenShows/`;
-    let data;
-    let glideContainer = `      
+    //   let data;
+    //   $.ajax({
+    //     url: queryURL,
+    //     method: "GET",
+    //   })
+    //     // After the data comes back from the API
+    //     .then((response) => {
+    //       console.log(response);
+    //       $("#theData").text(response.mediaPlot);
+    //     });
+    //   }
+    //   data = queryThirdPartyAPI();
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ////Produce 10 titles tv show only
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    let tenShows = () => {
+        let queryURL = `http://localhost:8080/api/tenShows/`;
+        let data;
+        let glideContainer = `      
     <div class="glide search">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-top-list">        
@@ -308,7 +308,30 @@ $(document).ready(() => {
     /***************************************************************************************/
     //-	Create a movie (to put inside of list)
     /***************************************************************************************/
-
+    const createMovie = (movie) => {
+        console.log("about to create media", movie);
+        $.ajax("/api/media", {
+                method: "POST",
+                data: movie
+            })
+            .then(
+                function() {
+                    console.log("created movie", movie);
+                    location.reload();
+                }
+            ).error(function() {
+                console.log("there was an error creating movie", movie);
+            });
+    };
+    // createMovie({
+    //     "title": "shrek",
+    //     "media_type": "movie",
+    //     "external_id": "45646fsdsag",
+    //     "summary": "story about SCottish Independence Wars",
+    //     "icon": "link to icon",
+    //     "listId": 1,
+    //     "provider": "hulu"
+    // });
     //$submitBtn.on("click", handleFormSubmit);
     //$exampleList.on("click", ".delete", handleDeleteBtnClick)
 });
