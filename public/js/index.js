@@ -80,26 +80,6 @@ $(document).ready(() => {
   /////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////////////////
-  //Example call
-  /////////////////////////////////////////////////////////////////////////////////////////
-
-  // function queryThirdPartyAPI() {
-  //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
-
-  //   let data;
-  //   $.ajax({
-  //     url: queryURL,
-  //     method: "GET",
-  //   })
-  //     // After the data comes back from the API
-  //     .then((response) => {
-  //       console.log(response);
-  //       $("#theData").text(response.mediaPlot);
-  //     });
-  //   }
-  //   data = queryThirdPartyAPI();
-
-  /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 popular titles
   /////////////////////////////////////////////////////////////////////////////////////////
   let queryTrending = () => {
@@ -122,8 +102,8 @@ $(document).ready(() => {
       // After the data comes back from the API
       .then((response) => {
         console.log(response);
-        let movieArray = response.media;
-        movieArray.forEach((movie) => {
+        let tvArr = response.media;
+        tvArr.forEach((movie) => {
           let thisMovieCard = `
 <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
@@ -136,14 +116,31 @@ $(document).ready(() => {
 `;
           $("#movie-bottom-list").prepend(thisMovieCard);
         });
-        //$("#theData").text(response.mediaTitle);
       });
   };
   queryTrending();
 
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  // //Produce 10 titles based on a query
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  // function queryThirdPartyAPI() {
+  //   let queryURL = `http://localhost:8080/api/mediaSearch/anchorman`;
 
-
-  
+  //   let data;
+  //   $.ajax({
+  //     url: queryURL,
+  //     method: "GET",
+  //   })
+  //     // After the data comes back from the API
+  //     .then((response) => {
+  //       console.log(response);
+  //       $("#theData").text(response.mediaPlot);
+  //     });
+  //   }
+  //   data = queryThirdPartyAPI();
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  ////Produce 10 titles tv show only
+  ///////////////////////////////////////////////////////////////////////////////////////////
   let tenShows = () => {
     let queryURL = `http://localhost:8080/api/tenShows/`;
     let data;
@@ -190,45 +187,79 @@ $(document).ready(() => {
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles tv show only
   /////////////////////////////////////////////////////////////////////////////////////////
-//   let tenShows = () => {
-//     let queryURL = `http://localhost:8080/api/tenShows/`;
-//     let glideContainer = `      
-//     <div class="glide">
-//     <div class="glide__track" data-glide-el="track">
-//       <ul class="glide__slides" id="movie-top-list">        
-//       </ul>
-//     </div>
-//   </div>
-// `;
-//     $("#showcase").append(glideContainer);
-//     let data;
-//     $.ajax({
-//       url: queryURL,
-//       method: "GET".then((response) => {
-//         console.log(response);
-//         let movieArray = response.media;
-//         movieArray.forEach((movie) => {
-//           let thisMovieCard = `
-// <li class="glide__slide">
-// <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
-//   <div class="flip-card-back">
-//       <h2> ${movie.title} </h2>
-//       <p> ${movie.overview} </p>
-//       <button></button>
-//   </div>
-// </li>
-// `;
-//           $("#movie-top-list").append(thisMovieCard);
-//         });
-//       }),
-//     });
-//   };
-//   tenShows();
+  //   let tenShows = () => {
+  //     let queryURL = `http://localhost:8080/api/tenShows/`;
+  //     let glideContainer = `
+  //     <div class="glide">
+  //     <div class="glide__track" data-glide-el="track">
+  //       <ul class="glide__slides" id="movie-top-list">
+  //       </ul>
+  //     </div>
+  //   </div>
+  // `;
+  //     $("#showcase").append(glideContainer);
+  //     let data;
+  //     $.ajax({
+  //       url: queryURL,
+  //       method: "GET".then((response) => {
+  //         console.log(response);
+  //         let movieArray = response.media;
+  //         movieArray.forEach((movie) => {
+  //           let thisMovieCard = `
+  // <li class="glide__slide">
+  // <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+  //   <div class="flip-card-back">
+  //       <h2> ${movie.title} </h2>
+  //       <p> ${movie.overview} </p>
+  //       <button></button>
+  //   </div>
+  // </li>
+  // `;
+  //           $("#movie-top-list").append(thisMovieCard);
+  //         });
+  //       }),
+  //     });
+  //   };
+  //   tenShows();
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 titles movies only
   /////////////////////////////////////////////////////////////////////////////////////////
+  let tenMovies = () => {
+    let queryURL = `http://localhost:8080/api/tenMovies/`;
 
+    let data;
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    }).then((response) => {
+      let movArr = response.media;
+      console.log(movArr);
+      for (let i = 0; i < movArr.length; i++) {
+        const movies = movArr[i];
+        let thisMovCard = `
+  <li>
+  <div class="flip-card">
+  <div class="flip-card-inner">
+  <div class="flip-card-front">
+      <img src="http://image.tmdb.org/t/p/w185//${movies.poster_path}" alt="${movies.title}">
+  </div>
+  <div class="flip-card-back">
+      <h2> ${movies.title} </h2>
+      <p> ${movies.overview} </p>
+      <button></button>
+  </div>
+  </div>
+  </div>
+  <div class="uk-position-center uk-panel">
+  </div>
+  </li>
+  `;
+        $("#bottom-movie-list").append(thisMovCard);
+      }
+    });
+  };
+  tenMovies();
   /***************************************************************************************/
   //-	Delete entire watchlist
   /***************************************************************************************/
