@@ -64,6 +64,24 @@ router.get("/api/users/:userId/lists", async(req, res) => {
     }
 });
 
+router.get("/api/users/:userId/watchlists", async(req, res) => {
+    try {
+        const watchlists = await db.list.findAll({
+            where: { userId: req.params.userId },
+            include: [{
+                model: db.medium,
+                as: 'media'
+            }]
+        });
+
+        res.json(watchlists);
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).send();
+    }
+});
+
 router.post(
     "/api/users",
     // passport.authenticate("jwt", { session: false }),
