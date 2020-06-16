@@ -283,6 +283,7 @@ $(document).ready(() => {
       name: listName,
       userId: userId,
     };
+  };
 
     //test code once elements created we will update this code 
     // $("#list-submit").on("click", function(event) {
@@ -319,4 +320,4 @@ $(document).ready(() => {
     // });
     //$submitBtn.on("click", handleFormSubmit);
     //$exampleList.on("click", ".delete", handleDeleteBtnClick)
-});
+  });
