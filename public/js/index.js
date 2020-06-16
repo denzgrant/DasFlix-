@@ -1,27 +1,25 @@
 $(document).ready(() => {
   function wait() {
-    let slider = document.querySelector(".glide");
+ 
 
-    let glide = new Glide(slider, {
+    let glide = new Glide(".showcase", {
+      type: "carousel",
+      autoplay: 3500,
+      perView: 6,
+    });
+
+    let glide2 = new Glide(".search", {
       type: "carousel",
       autoplay: 3500,
       perView: 6,
     });
 
     glide.mount();
+    glide2.mount();
   }
 
-  setTimeout(wait, 1000);
+  setTimeout(wait, 2000);
 
-  // new Glide('#glide1', {
-  // 	type: 'carousel',
-  // 	perView: 3,
-  // 	breakpoints: {
-  // 		800: {
-  // 			perView: 1
-  // 		}
-  // 	}
-  // }).mount();
   //let $submitBtn = $("#submit");
 
   // var $exampleList = $("#example-list");
@@ -86,7 +84,7 @@ $(document).ready(() => {
     let queryURL = `http://localhost:8080/api/trending/`;
     let data;
     let glideContainer = `      
-    <div class="glide">
+    <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-bottom-list">        
       </ul>
@@ -145,7 +143,7 @@ $(document).ready(() => {
     let queryURL = `http://localhost:8080/api/tenShows/`;
     let data;
     let glideContainer = `      
-    <div class="glide">
+    <div class="glide search">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-top-list">        
       </ul>
