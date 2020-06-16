@@ -1,4 +1,5 @@
 $(document).ready(() => {
+
   function wait() {
     let glide = new Glide(".showcase", {
       type: "carousel",
@@ -6,19 +7,19 @@ $(document).ready(() => {
       perView: 6,
     });
 
-    let glide2 = new Glide(".search", {
-      type: "carousel",
-      autoplay: 3500,
-      perView: 6,
-    });
+        let glide2 = new Glide(".search", {
+            type: "carousel",
+            autoplay: 3500,
+            perView: 6,
+        });
 
-    glide.mount();
-    glide2.mount();
-  }
+        glide.mount();
+        glide2.mount();
+    }
 
-  setTimeout(wait, 2000);
+    setTimeout(wait, 2000);
 
-  //let $submitBtn = $("#submit");
+    //let $submitBtn = $("#submit");
 
   // // The API object contains methods for each kind of request we'll make
   // var API = {
@@ -70,6 +71,7 @@ $(document).ready(() => {
   /////////////////////////////////////////////////////////////////////////////////////////
   //3 party API call
   /////////////////////////////////////////////////////////////////////////////////////////
+
 
   /////////////////////////////////////////////////////////////////////////////////////////
   //Produce 10 popular titles
@@ -281,29 +283,40 @@ $(document).ready(() => {
       name: listName,
       userId: userId,
     };
-    console.log("about to create list", newList);
-    $.ajax("/api/lists", {
-      method: "POST",
-      data: newList,
-    })
-      .then(function () {
-        console.log("Created list", newList);
-        location.reload();
-      })
-      .error(function () {
-        console.log("something failed", newList);
-      });
-  };
-  //test code once elements created we will update this code
-  // $("#list-submit").on("click", function(event) {
-  //     const listname = $("#list-name").val().trim();
-  //     console.log("about to call function", listname);
-  //     createList(1, listname);
-  // });
-  /***************************************************************************************/
-  //-	Create a movie (to put inside of list)
-  /***************************************************************************************/
 
-  //$submitBtn.on("click", handleFormSubmit);
-  //$exampleList.on("click", ".delete", handleDeleteBtnClick)
+    //test code once elements created we will update this code 
+    // $("#list-submit").on("click", function(event) {
+    //     const listname = $("#list-name").val().trim();
+    //     console.log("about to call function", listname);
+    //     createList(1, listname);
+    // });
+    /***************************************************************************************/
+    //-	Create a movie (to put inside of list)
+    /***************************************************************************************/
+    const createMovie = (movie) => {
+        console.log("about to create media", movie);
+        $.ajax("/api/media", {
+                method: "POST",
+                data: movie
+            })
+            .then(
+                function() {
+                    console.log("created movie", movie);
+                    location.reload();
+                }
+            ).error(function() {
+                console.log("there was an error creating movie", movie);
+            });
+    };
+    // createMovie({
+    //     "title": "shrek",
+    //     "media_type": "movie",
+    //     "external_id": "45646fsdsag",
+    //     "summary": "story about SCottish Independence Wars",
+    //     "icon": "link to icon",
+    //     "listId": 1,
+    //     "provider": "hulu"
+    // });
+    //$submitBtn.on("click", handleFormSubmit);
+    //$exampleList.on("click", ".delete", handleDeleteBtnClick)
 });
