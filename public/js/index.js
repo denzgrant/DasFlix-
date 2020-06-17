@@ -19,9 +19,8 @@ $(document).ready(() => {
     setTimeout(wait, 2000);
 
     $('#myModal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
-    })
-
+        $('#myInput').trigger('focus');
+    });
 
     //let $submitBtn = $("#submit");
 
@@ -104,10 +103,10 @@ $(document).ready(() => {
                     let thisMovieCard = `
 <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+<a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
   <div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
-      <button></button>
   </div>
 </li>
 `;
@@ -145,7 +144,7 @@ $(document).ready(() => {
                 let thisMovieCard = `
       <li class="glide__slide">
       <img width="185" src="https://utellyassets9-1.imgix.net/api/Images/2e20f74f6b0ab1a43224dcfe3b18180c/Redirect" alt="${response.name}">
-      <a href="" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+      <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
       <div class="flip-card-back">
       <h2> ${response.name} </h2>
       <p> ${response.mediaPlot} </p>
@@ -188,10 +187,10 @@ $(document).ready(() => {
                     let thisMovieCard = `
 <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+<a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
   <div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
-      <button></button>
   </div>
 </li>
 `;
@@ -238,10 +237,10 @@ $(document).ready(() => {
                     let thisMovieCard = `
 <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+<a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
   <div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
-      <button></button>
   </div>
 </li>
 `;

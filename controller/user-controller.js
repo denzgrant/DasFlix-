@@ -24,9 +24,26 @@ router.get("/users", async(req, res) => {
     }
 });
 
+router.get("/watchlists",
+    passport.authenticate("jwt", { session: false }),
+    async(req, res) => {
+    try {
+        if (req.user) {
+            const data = await db.user.findAll();
+            res.render("watchlists", { user: req.user });
+        } else {
+            res.redirect("/login");
+        }
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).send();
+    }
+});
+
 router.get(
     "/api/users",
-    // passport.authenticate("jwt", { session: false }),
+     //passport.authenticate("jwt", { session: false }),
     async(req, res) => {
         try {
             const data = await db.user.findAll({ include: [db.history] });
