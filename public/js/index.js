@@ -18,6 +18,11 @@ $(document).ready(() => {
 
     setTimeout(wait, 2000);
 
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+
+
     //let $submitBtn = $("#submit");
 
     // // The API object contains methods for each kind of request we'll make
@@ -75,7 +80,7 @@ $(document).ready(() => {
     //Produce 10 popular titles
     /////////////////////////////////////////////////////////////////////////////////////////
     let queryTrending = () => {
-        let queryURL = `http://localhost:8080/api/trending/`;
+        let queryURL = `/api/trending/`;
         let data;
         let glideContainer = `      
     <div class="glide showcase">
@@ -117,7 +122,7 @@ $(document).ready(() => {
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     function queryThirdPartyAPI(searchTerm) {
-        let queryURL = `http://localhost:8080/api/mediaSearch/${searchTerm}`;
+        let queryURL = `/api/mediaSearch/${searchTerm}`;
         let glideContainer = `      
     <div class="glide search">
     <div class="glide__track" data-glide-el="track">
@@ -140,10 +145,10 @@ $(document).ready(() => {
                 let thisMovieCard = `
       <li class="glide__slide">
       <img width="185" src="https://utellyassets9-1.imgix.net/api/Images/2e20f74f6b0ab1a43224dcfe3b18180c/Redirect" alt="${response.name}">
+      <a href="" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
       <div class="flip-card-back">
       <h2> ${response.name} </h2>
       <p> ${response.mediaPlot} </p>
-      <button></button>
       </div>
       </li>
       `;
@@ -159,7 +164,7 @@ $(document).ready(() => {
     ////Produce 10 titles tv show only
     ///////////////////////////////////////////////////////////////////////////////////////////
     let tenShows = () => {
-        let queryURL = `http://localhost:8080/api/tenShows/`;
+        let queryURL = `/api/tenShows/`;
         let data;
         let glideContainer = `      
     <div class="glide search">
@@ -209,7 +214,7 @@ $(document).ready(() => {
     /////////////////////////////////////////////////////////////////////////////////////////
     let tenMovies = () => {
         console.log('i ran!');
-        let queryURL = `http://localhost:8080/api/tenMovies/`;
+        let queryURL = `/api/tenMovies/`;
         let data;
         let glideContainer = `      
     <div class="glide search">
