@@ -22,54 +22,6 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
-    //let $submitBtn = $("#submit");
-
-    // // The API object contains methods for each kind of request we'll make
-    // var API = {
-    //   saveExample: function (example) {
-    //     return $.ajax({
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       type: "POST",
-    //       url: "api/examples",
-    //       data: JSON.stringify(example),
-    //     });
-    //   },
-    //   getExamples: function () {
-    //     return $.ajax({
-    //       url: "api/examples",
-    //       type: "GET",
-    //     });
-    //   },
-    //   deleteExample: function (id) {
-    //     return $.ajax({
-    //       url: "api/examples/" + id,
-    //       type: "DELETE",
-    //     });
-    //   },
-    // };
-
-    //$("#submit").on("click", function () {
-    //   event.preventDefault();
-    //   const searchedMedia = $("#submit-query").val().trim().toLowerCase();
-
-    //   $.get(`/api/media-search/${searchedmedia}`, function (data) {
-    //     console.log(data);
-    //     if (data) {
-    //       $(".flip-card-front").append(`
-    //         <img src="${mediaPoster}" alt="poster of movie/tv">`);
-    //       $(".flip-card-back").append(`
-    //           <h1>${mediaTitle}</h1>
-    //           <p>Type ${mediaType}\n
-    //           Year Released: ${mediaYear}\n
-    //           Plot: ${mediaPlot}</p>
-    //           <strong>Available on ${mediaLocations}</strong>`);
-    //     } else {
-    //       //prompt an error message
-    //     }
-    //   });
-    // });
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
