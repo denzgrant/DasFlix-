@@ -11,6 +11,12 @@ router.get("/api/media", async(req, res) => {
     res.json(data);
 });
 
+router.get("/api/media/mostwatched", async(req, res) => {
+    const data = await db.medium.findAll();
+
+    res.json(data);
+});
+
 router.get("/api/media/:id", async(req, res) => {
     const data = await db.medium.findAll({ where: { id: req.params.id } });
 

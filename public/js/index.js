@@ -24,14 +24,14 @@ $(document).ready(() => {
 
 
     //On click add a movie to a chosen watchlist
-    $("#search").on("click", "#watchlist-button", function() {
-      console.log($(this).parent());
-      $("#ex1").empty();
-      const watchList = getWatchlists();
-      
-      $("#ex1").append('<li>My Favorite</li>')
-      //run call for watchlists 
-      //load them into modals
+    $("#search").on("click", "#watchlist-button", function () {
+        console.log($(this).parent());
+        $("#ex1").empty();
+        const watchList = getWatchlists();
+
+        $("#ex1").append('<li>My Favorite</li>')
+        //run call for watchlists 
+        //load them into modals
     })
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -180,16 +180,16 @@ $(document).ready(() => {
     //Produce 10 titles movies only
     /////////////////////////////////////////////////////////////////////////////////////////
 
-   let getWatchlists = () => {
-     let queryURL = `/api/users/1/watchlists`
-     $.ajax({
-       url: queryURL,
-       method: 'GET'
-       })
-       .then((response) => {
-         console.log(response)
-       })
-   }
+    let getWatchlists = () => {
+        let queryURL = `/api/users/1/watchlists`
+        $.ajax({
+            url: queryURL,
+            method: 'GET'
+        })
+            .then((response) => {
+                console.log(response)
+            })
+    }
 
     let tenMovies = () => {
         let queryURL = `/api/tenMovies/`;
@@ -251,22 +251,7 @@ $(document).ready(() => {
         });
     });
 
-    /***************************************************************************************/
-    //-	Create a list
-    /***************************************************************************************/
-    const createList = (userId, listName) => {
-        let newList = {
-            name: listName,
-            userId: userId
-        };
-    };
-
-    //test code once elements created we will update this code
-    // $("#list-submit").on("click", function(event) {
-    //     const listname = $("#list-name").val().trim();
-    //     console.log("about to call function", listname);
-    //     createList(1, listname);
-    // });
+    
     /***************************************************************************************/
     //-	Create a movie (to put inside of list)
     /***************************************************************************************/
@@ -295,4 +280,130 @@ $(document).ready(() => {
     // });
     //$submitBtn.on("click", handleFormSubmit);
     //$exampleList.on("click", ".delete", handleDeleteBtnClick)
+
+
+    ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working 
+    const getListsByUserId = (userId, cb) => {
+        console.log('about to get lists for user', userId);
+        $.ajax(`/api/users/${userId}/lists`, {
+            method: 'GET',
+        })
+            .then(function (lists) {
+
+                console.log('lists', lists);
+                cb(lists);
+            })
+            .catch(function () {
+                console.log('there was an error ');
+            });
+
+    };
+
+    ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working 
+    const getMoviesByList = (listId, cb) => {
+        console.log('about to get movies in list', listId);
+        $.ajax(`api/lists/${listId}/media`, {
+            method: 'GET',
+        })
+        .then(function (media) {
+                console.log('media', media);
+                cb(media);
+            })
+            .catch(function () {
+                console.log('there was an error ');
+            });
+    };
+
+     
+    ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working 
+    const getMoviesByList = (listId, cb) => {
+        console.log('about to get movies in list', listId);
+        $.ajax(`api/lists/${listId}/media`, {
+            method: 'GET',
+        })
+        .then(function (media) {
+                console.log('media', media);
+                cb(media);
+            })
+            .catch(function () {
+                console.log('there was an error ');
+            });
+    };
+
+    ///////////////////////// createList(userId,listName) ////////// *******Working  
+    const createList = (userId, listName) => {
+        let newList = {
+            "name": listName,
+            "userId": userId
+        };
+        console.log("about to create list", newList);
+        $.ajax("/api/lists", {
+            method: "POST",
+            data: newList
+        })
+            .then(
+                function () {
+                    console.log("Created list", newList);
+                    
+                }
+            ).catch(function () {
+                console.log("something failed", newList);
+            });
+    };
+    //test code once elements created we will update this code
+    // $("#list-submit").on("click", function(event) {
+    //     const listname = $("#list-name").val().trim();
+    //     console.log("about to call function", listname);
+    //     createList(1, listname);
+    // });
+
+ ///////////////////////// deleteList(listId) ////////// *******Working  
+    const deleteList = (listId) => {
+        console.log("about to delete list", listId);
+        $.ajax(`/api/lists/${listId}`, {
+            method: "DELETE"
+        })
+            .then(
+                function () {
+                    console.log("deleted list", listId);
+                   
+                }
+            ).catch(function () {
+                console.log("something failed", listId);
+            });
+    };
+     
+    ///////////////////////// showMostWatchlistedTitles(cb) ////////// *******Working  
+    const showMostWatchlistedTitles = (cb) => {
+        console.log("about to get most watched list");
+
+        $.ajax(`/api/media/mostwatched`, {
+            method: "GET"
+        })
+            .then(
+                function (data) {
+                    console.log("most watched", data);
+                    cb(data);
+                }
+            ).catch(function () {
+                console.log("something failed");
+            });
+    };
+
+    // // HOW TO USE:
+    // $("#testbtn").on("click", function() {
+
+    //     const my_happy_callback = (result) => {
+    //         console.log("calling from within my test",result);
+    //         const the_movies = result.media;
+    //         for (let list of the_movies) {
+    //             console.log(list);
+    //         };
+    //         // here you do the $("#whatever-element-you-create-to").append("<li> ${list.name}</li>")
+    //     };
+
+    //     getMoviesByList(1, my_happy_callback);
+    // });
+    
+
 });
