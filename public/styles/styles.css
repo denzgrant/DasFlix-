@@ -133,7 +133,7 @@ section.container-fluid {
   transform: rotateY(180deg);
 }
 #placeholder {
-  height: 30vh;
+  height: 88vh;
 }
 #search-ul {
   max-width: 100vw;
@@ -182,3 +182,15 @@ section.container-fluid {
     user-select: none; }
   .glide--rtl {
     direction: rtl; }
+
+    .watchlists-grid {
+      display: grid;
+      grid-gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .watchlist-box {
+      height: 300px;
+      width: 300px;
+      background: var(--lighter-color);
+      list-style: none
+    }
