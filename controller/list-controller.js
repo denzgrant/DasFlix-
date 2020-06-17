@@ -13,7 +13,23 @@ router.get("/api/lists/:id", async(req, res) => {
 
     res.json(data);
 });
+router.get("/api/lists/:id/media", async(req, res) => {
+    try {
+        const watchlists = await db.list.findOne({
+            where: { id: req.params.id },
+            include: [{
+                model: db.medium,
+                as: 'media'
+            }]
+        });
 
+        res.json(watchlists);
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).send();
+    }
+});
 router.post("/api/lists",
     //  passport.authenticate("jwt", { session: false }),
     async(req, res) => {
