@@ -22,12 +22,11 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
-    $("#slide").click(function () {
-        var title = $(this).find(".title").html();
-        var desc = $(this).find(".description").html();
-        $("#selected-title").html(title);
-        $("#selected-description").html(desc);
-    });
+    $("#search").on("click", "#watchlist-button", function() {
+      console.log($(this).parent());
+      //run call for watchlists 
+      //load them into modals
+    })
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
@@ -60,7 +59,6 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-                console.log(response);
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
