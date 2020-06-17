@@ -22,6 +22,12 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
+    $("#slide").click(function () {
+        var title = $(this).find(".title").html();
+        var desc = $(this).find(".description").html();
+        $("#selected-title").html(title);
+        $("#selected-description").html(desc);
+    });
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
@@ -33,7 +39,8 @@ $(document).ready(() => {
     let queryTrending = () => {
         let queryURL = `/api/trending/`;
         let data;
-        let glideContainer = `      
+        let glideContainer = `    
+          
     <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
       <ul class="glide__slides" id="movie-bottom-list">        
@@ -42,6 +49,10 @@ $(document).ready(() => {
   </div>
 `;
         $('#showcase').append(glideContainer);
+
+        $("#poster").click(function () {
+            alert("test");
+        });
 
         $.ajax({
             url: queryURL,
@@ -53,14 +64,15 @@ $(document).ready(() => {
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
+        
 <li class="glide__slide">
-<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
 <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
   <div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
   </div>
-</li>
+  </li>
 `;
                     $('#movie-bottom-list').prepend(thisMovieCard);
                 });
@@ -77,7 +89,7 @@ $(document).ready(() => {
         let glideContainer = `      
     <div class="glide search">
     <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides" id="movie-bottom-list">        
+    <ul class="glide__slides" id="movie-search-list">        
     </ul>
     </div>
     </div>
@@ -92,10 +104,9 @@ $(document).ready(() => {
             // After the data comes back from the API
             .then((response) => {
                 console.log(response);
-
                 let thisMovieCard = `
       <li class="glide__slide">
-      <img width="185" src="https://utellyassets9-1.imgix.net/api/Images/2e20f74f6b0ab1a43224dcfe3b18180c/Redirect" alt="${response.name}">
+      <img width="185" src="http://image.tmdb.org/t/p/w185//${response.mediaPoster}" alt="${response.mediaTitle}">
       <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
       <div class="flip-card-back">
       <h2> ${response.name} </h2>
@@ -103,9 +114,11 @@ $(document).ready(() => {
       </div>
       </li>
       `;
-                $('#movie-bottom-list').append(thisMovieCard);
+                console.log(thisMovieCard);
+                $('#movie-search-list').append(thisMovieCard);
             });
     }
+
 
     $('#submit').on('click', () => {
         let searchTerm = $('#submit-query').val();
@@ -133,7 +146,6 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-                console.log(response);
                 let movieArray = response.media;
                 movieArray.forEach((movie) => {
                     let thisMovieCard = `
@@ -164,7 +176,6 @@ $(document).ready(() => {
     //Produce 10 titles movies only
     /////////////////////////////////////////////////////////////////////////////////////////
     let tenMovies = () => {
-        console.log('i ran!');
         let queryURL = `/api/tenMovies/`;
         let data;
         let glideContainer = `      
