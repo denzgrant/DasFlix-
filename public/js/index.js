@@ -22,6 +22,12 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
+    $("#search").on("click", "#watchlist-button", function() {
+      console.log($(this).parent());
+      //run call for watchlists 
+      //load them into modals
+    })
+
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
@@ -49,7 +55,6 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-                console.log(response);
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
@@ -133,7 +138,6 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-                console.log(response);
                 let movieArray = response.media;
                 movieArray.forEach((movie) => {
                     let thisMovieCard = `
