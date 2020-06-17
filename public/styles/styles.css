@@ -194,3 +194,6 @@ section.container-fluid {
       background: var(--lighter-color);
       list-style: none
     }
+    #ex1 li{
+      color: black;
+    }

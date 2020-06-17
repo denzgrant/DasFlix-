@@ -7,8 +7,8 @@ router.get("/api/mediaSearch/:searchTerm", async (req, res) => {
     let secondData = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=68c0e41b28df67801658d2f261ee4403&language=en-US&query=${req.params.searchTerm}&page=1&include_adult=false`, {
 
     });
-    let results = secondData.data.results.filter(movie => (!movie.poster_path.endsWith("null")));
-
+   let results = secondData.data.results.filter(movie => (!movie.poster_path.endsWith("null")));
+console.log(results);
     res.json({
       //type as in TV or Movie
       mediaTitle: results[0].title,

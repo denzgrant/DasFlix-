@@ -22,8 +22,14 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
+
+    //On click add a movie to a chosen watchlist
     $("#search").on("click", "#watchlist-button", function() {
       console.log($(this).parent());
+      $("#ex1").empty();
+      const watchList = getWatchlists();
+      
+      $("#ex1").append('<li>My Favorite</li>')
       //run call for watchlists 
       //load them into modals
     })
@@ -173,6 +179,18 @@ $(document).ready(() => {
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 titles movies only
     /////////////////////////////////////////////////////////////////////////////////////////
+
+   let getWatchlists = () => {
+     let queryURL = `/api/users/1/watchlists`
+     $.ajax({
+       url: queryURL,
+       method: 'GET'
+       })
+       .then((response) => {
+         console.log(response)
+       })
+   }
+
     let tenMovies = () => {
         let queryURL = `/api/tenMovies/`;
         let data;
