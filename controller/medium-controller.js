@@ -12,9 +12,9 @@ router.get("/api/media", async(req, res) => {
 });
 
 router.get("/api/media/mostwatched", async(req, res) => {
-    const data = await db.medium.findAll();
-
-    res.json(data);
+    const watchlists = await db.medium.recommendations();
+    // console.log(watchlists);
+            res.json(watchlists);
 });
 
 router.get("/api/media/:id", async(req, res) => {
