@@ -283,7 +283,7 @@ $('#search').empty();
 
 
     ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working 
-    const getListsByUserId = (userId) => {
+    const getListsByUserId = (userId, cb) => {
       console.log('about to get lists for user', userId);
         $.ajax(`/api/users/${userId}/lists`, {
           method: 'GET',
@@ -291,7 +291,7 @@ $('#search').empty();
             .then(function (lists) {
 
               console.log('lists', lists);
-                return lists;
+                cb(lists);
               })
             .catch(function () {
                 console.log('there was an error ');
@@ -392,18 +392,18 @@ $('#search').empty();
       console.log("calling from within my test", data);
        return data;
    };
-    
-    //if(window.location.href === '/watchlists'){
+    const myDb = [];
+    if(window.location.href === 'http://localhost:8080/watchlists'){
      let currentUser = $("#watchlist-view").data("user");
      console.log(currentUser);
-     let watchlists = getListsByUserId(currentUser);
+     const getResult = (data) =>{
+        return data;
+     };
+     
+    const watchlists = getListsByUserId(currentUser, getResult);
      console.log(watchlists);
-
-
-     //let watc = `
      
-     
-    //}
+    }
 
   });
   
