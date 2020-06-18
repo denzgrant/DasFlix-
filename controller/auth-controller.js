@@ -38,7 +38,7 @@ router.get('/watchlists', (req, res) => {
     if (req.user) {
         res.render('watchlists', { user: req.user });
     } else {
-        res.redirect('/login');
+        res.redirect('/');
     }
 });
 
