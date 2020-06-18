@@ -66,15 +66,16 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
+              console.log(response)
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
                   
                   <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
-<a data-title="${movie.title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+<a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
 <div class="flip-card-back">
-      <h2> ${movie.title} </h2>
+      <h2> ${movie.original_title} </h2>
       <p> ${movie.overview} </p>
       </div>
       </li>
@@ -185,7 +186,7 @@ $(document).ready(() => {
                     let thisMovieCard = `
                 <li class="glide__slide">
                 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
-                <a data-title="${movie.title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+                <a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
                 <div class="flip-card-back">
                 <h2> ${movie.title} </h2>
                 <p> ${movie.overview} </p>
@@ -250,10 +251,10 @@ $(document).ready(() => {
                 movieArray.forEach((movie) => {
                     let thisMovieCard = `
                   <li class="glide__slide">
-<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
-<a data-title="${movie.title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.original_title}">
+<a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
 <div class="flip-card-back">
-      <h2> ${movie.title} </h2>
+      <h2> ${movie.original_title} </h2>
       <p> ${movie.overview} </p>
       </div>
       </li>
@@ -416,10 +417,14 @@ $(document).ready(() => {
     };
 
     $('.container-fluid').on('click', '#watchlist-button', function () {
-      let currentTitle, currentOverview, currentImage
+      let currentTitle = ''
+      let currentOverview = ''
+      let currentImage = ''
       currentTitle = $(this).data("title");
       currentOverview = $(this).data("overview");
       currentImage = $(this).data("image");
+
+      console.log(currentTitle, currentImage, currentOverview)
       
         let currentUser = $('#user-info').data('user');
         console.log(currentUser);
@@ -454,6 +459,9 @@ $(document).ready(() => {
                 listId: listid,
                 provider: 'hulu'
             });
+            currentTitle = ''
+            currentOverview = ''
+            currentImage = ''
             $('#ex1').hide();
             $('.jquery-modal').hide();
         });
