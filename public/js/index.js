@@ -140,7 +140,7 @@ $(document).ready(() => {
                   <div class="card-body">
                   <h5 class="card-title text-dark"">${movie.mediaTitle}</h5>
                   <p class="card-text text-dark">${movie.movieYear}</p>
-                  <a data-title="${movie.mediaTitle}" data-image="http://image.tmdb.org/t/p/w185//${movie.mediaPoster}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+                  <a data-title="${movie.mediaTitle}" data-image="http://image.tmdb.org/t/p/w185//${movie.mediaPoster}" data-overview="${movie.mediaPlot}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
                   </div>
                 </div>
                 </div>   
