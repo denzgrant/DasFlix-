@@ -1,4 +1,5 @@
 const list_medium = require("./list_medium");
+const { QueryTypes } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
     const Medium = sequelize.define(
@@ -29,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
             freezeTableName: true
         }
     );
+    Medium.recommendations = async () => {
+        return await sequelize.query(
+            `select title, count(*) as 'occurrence' from medium
+        group by title
+        order by 2 desc
+        limit 10;  `, { type: QueryTypes.SELECT });
+    };
+
 
     Medium.associate = models => {
         Medium.belongsToMany(models.list, {
