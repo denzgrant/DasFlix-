@@ -516,7 +516,9 @@ $(document).ready(() => {
                     </div>                  
                 </div>
       `;
-                $('#watchlists').append(listLi);
+      if (listObj.title.length !== 0) {
+        $('#watchlists').append(listLi);
+      }
             });
         };
         getMoviesByList(listid, showDaMovies);
@@ -549,7 +551,7 @@ $(document).ready(() => {
                     </div>
                 </li>
                 `;
-                    $('#watchlists').append(listLi);
+                  $('#watchlists').append(listLi);
                 });
             };
             getListsByUserId(currentUser, getResult);
