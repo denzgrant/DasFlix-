@@ -416,6 +416,16 @@ $(document).ready(() => {
         return data;
     };
 
+    // function chopOverview (overview){
+    //   console.log(overview)
+    //   if (overview.length > 100) {
+    //     overview = overview.substring(0, 99) + "...";
+    //   };
+    //   console.log(overview)
+    //   return overview;
+    // }
+
+
     $('.container-fluid').on('click', '#watchlist-button', function () {
       let currentTitle = ''
       let currentOverview = ''
@@ -450,6 +460,8 @@ $(document).ready(() => {
 
             //COME BACK TO THIS
 
+           // let shortenedOverview = chopOverview(currentOverview)
+            
             createMovie({
                 title: currentTitle,
                 media_type: 'movie',
