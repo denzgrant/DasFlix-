@@ -186,7 +186,7 @@ $(document).ready(() => {
                     let thisMovieCard = `
                 <li class="glide__slide">
                 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
-                <a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+                <a data-title="${movie.name}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
                 <div class="flip-card-back">
                 <h2> ${movie.title} </h2>
                 <p> ${movie.overview} </p>
