@@ -529,7 +529,7 @@ $(document).ready(() => {
     });
 
     //Dynamically add lists on page load
-    if (window.location.href === 'http://localhost:8080/watchlists') {
+    if (window.location.href === 'http://localhost:8080/watchlists' || window.location.href === 'http://www.dasflix.com/watchlists') {
         function buildLists() {
             let currentUser = $('#watchlist-view').data('user');
             const getResult = (data) => {
