@@ -7,12 +7,12 @@
             <img class="popcorn" src="../assets/images/popcorn.png" alt="Popcorn">
             <h1 a href="/index">DASFLIX</h1>
           </div>
-          <div id="user-info" data-user="{{user.id}}" class="col-lg-6 d-flex align-items-center justify-content-end">
+          <div class="col-lg-6 d-flex align-items-center justify-content-end">
             {{#if user}}
             <a href="/watchlists" class="btn btn-primary">Watchlist</a>
-            <a href="/logout" class="btn btn-primary">Log Out</a>
+            <a href="/logout" class="btn btn-primary">Sign Out</a>
             {{else}}
-            <p>Please <a href="/login">log in</a>.</p>
+            <p>Please <a href="/login">Sign in</a>.</p>
             {{/if}}
           </div>
         </div>
@@ -23,7 +23,7 @@
     <div id="showcase">
 
     </div>
-    <div class="row p-5" id="filters">
+    <div  id="user-info" data-user="{{user.id}}" class="row p-5" id="filters">
       <input type="text" placeholder="Search Movie/TV" id="submit-query">
       <input type="submit" id="submit">
     </div>

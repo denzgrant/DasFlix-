@@ -440,12 +440,10 @@ $(document).ready(() => {
 
         console.log(currentTitle, currentImage, currentOverview);
 
-        let currentUser = $('#user-info').data('user');
+        let currentUser = $('#current-user').data('user');
         console.log(currentUser);
         $('#ex1').empty();
         const listIntoModal = (data) => {
-            $('#ex1').empty();
-
             data.forEach((listObj) => {
                 let listLi = `
             <li class="list-group-item" data-listid="${listObj.id}" id="pickList">${listObj.name}</li>
@@ -485,8 +483,8 @@ $(document).ready(() => {
     // Create list on button click
 
     $('#watchlist-view').on('click', function () {
-        let currentUser = $('#watchlist-view').data('user');
-        let listName = prompt('enter list name');
+      let currentUser = $('#current-user').data('user');
+      let listName = prompt('enter list name');
         createList(currentUser, listName);
         buildLists();
         location.reload();
@@ -527,7 +525,7 @@ $(document).ready(() => {
     // Delete Watchlist
     $('#watchlists').on('click', '#watchlist-remove', function () {
         let listid = $(this).data('listid');
-        let currentUser = $('#watchlist-view').data('user');
+        let currentUser = $('#current-user').data('user');
         deleteList(listid);
         buildLists();
         location.reload();
@@ -536,8 +534,8 @@ $(document).ready(() => {
     //Dynamically add lists on page load
     if (window.location.href === 'http://localhost:8080/watchlists' || window.location.href === 'http://www.dasflix.com/watchlists') {
         function buildLists() {
-            let currentUser = $('#watchlist-view').data('user');
-            const getResult = (data) => {
+          let currentUser = $('#current-user').data('user');
+          const getResult = (data) => {
                 $('#watchlists').empty();
                 data.forEach((listObj) => {
                     let listLi = `
