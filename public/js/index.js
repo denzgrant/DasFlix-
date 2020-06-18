@@ -66,7 +66,7 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-              console.log(response)
+                console.log(response);
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
@@ -89,6 +89,26 @@ $(document).ready(() => {
     ///////////////////////////////////////////////////////////////////////////////////////////
     // //Produce 10 titles based on a query
     ///////////////////////////////////////////////////////////////////////////////////////////
+
+    function hardCodeHulu() {
+        //has to be done... not proud of it
+        let queryURL = `/api/providers`;
+        let data = {
+            name: 'hulu',
+            icon: 'placeholder'
+        };
+
+        $.ajax(queryURL, {
+            method: 'POST',
+            data: data
+        })
+            // After the data comes back from the API
+            .then((response) => {
+                console.log(response + 'added');
+            });
+    }
+
+    hardCodeHulu();
 
     function queryThirdPartyAPI(searchTerm) {
         let queryURL = `/api/mediaSearch/${searchTerm}`;
@@ -425,17 +445,16 @@ $(document).ready(() => {
     //   return overview;
     // }
 
-
     $('.container-fluid').on('click', '#watchlist-button', function () {
-      let currentTitle = ''
-      let currentOverview = ''
-      let currentImage = ''
-      currentTitle = $(this).data("title");
-      currentOverview = $(this).data("overview");
-      currentImage = $(this).data("image");
+        let currentTitle = '';
+        let currentOverview = '';
+        let currentImage = '';
+        currentTitle = $(this).data('title');
+        currentOverview = $(this).data('overview');
+        currentImage = $(this).data('image');
 
-      console.log(currentTitle, currentImage, currentOverview)
-      
+        console.log(currentTitle, currentImage, currentOverview);
+
         let currentUser = $('#user-info').data('user');
         console.log(currentUser);
         $('#ex1').empty();
@@ -454,14 +473,13 @@ $(document).ready(() => {
 
         //Use watchlist to add movie to movies
         $('#ex1').on('click', '#pickList', function () {
-
             let listid = $(this).data('listid');
             console.log(listid);
 
             //COME BACK TO THIS
 
-           // let shortenedOverview = chopOverview(currentOverview)
-            
+            // let shortenedOverview = chopOverview(currentOverview)
+
             createMovie({
                 title: currentTitle,
                 media_type: 'movie',
@@ -471,9 +489,9 @@ $(document).ready(() => {
                 listId: listid,
                 provider: 'hulu'
             });
-            currentTitle = ''
-            currentOverview = ''
-            currentImage = ''
+            currentTitle = '';
+            currentOverview = '';
+            currentImage = '';
             $('#ex1').hide();
             $('.jquery-modal').hide();
         });
