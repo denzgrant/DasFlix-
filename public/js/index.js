@@ -1,4 +1,7 @@
 $(document).ready(() => {
+
+var watchlists;
+
     function wait() {
         let glide = new Glide('.showcase', {
             type: 'carousel',
@@ -283,7 +286,7 @@ $('#search').empty();
 
 
     ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working 
-    const getListsByUserId = (userId, cb) => {
+    const getListsByUserId = async (userId, cb) => {
       console.log('about to get lists for user', userId);
         $.ajax(`/api/users/${userId}/lists`, {
           method: 'GET',
@@ -291,11 +294,13 @@ $('#search').empty();
             .then(function (lists) {
 
               console.log('lists', lists);
-                cb(lists);
+              cb(lists);
               })
             .catch(function () {
                 console.log('there was an error ');
               });
+              console.log(watchlists)
+              return watchlists;
               
     };
     
@@ -392,17 +397,31 @@ $('#search').empty();
       console.log("calling from within my test", data);
        return data;
    };
-    const myDb = [];
+  
+    
     if(window.location.href === 'http://localhost:8080/watchlists'){
      let currentUser = $("#watchlist-view").data("user");
      console.log(currentUser);
-     const getResult = (data) =>{
-        return data;
+     const getResult = (data) => {
+        console.log(data);
+        $("#watchlists").empty();    
+        data.forEach((listObj) => {
+         console.log(listObj);
+         let listLi = `
+         <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
+                   <div data-listid="${listObj.id}">
+                       <h2>${listObj.name}</h2>
+                   </div>
+                   <div class="d-flex">
+                       <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
+                       <a href="#remove" id="watchlist-view" class="btn btn-primary">Remove Watchlist</a>
+                   </div>
+               </li>
+         `
+         $("#watchlists").append(listLi);
+        });
      };
-     
-    const watchlists = getListsByUserId(currentUser, getResult);
-     console.log(watchlists);
-     
+     getListsByUserId(currentUser, getResult);
     }
 
   });
