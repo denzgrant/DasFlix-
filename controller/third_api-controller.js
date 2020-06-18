@@ -7,26 +7,24 @@ router.get("/api/mediaSearch/:searchTerm", async (req, res) => {
     let secondData = await axios.get(`https://api.themoviedb.org/3/search/multi?api_key=68c0e41b28df67801658d2f261ee4403&language=en-US&query=${req.params.searchTerm}&page=1&include_adult=false`, {
 
     });
-  
+
     const movies = secondData.data.results;
+    console.log(movies);
     let results = [];
 
     for (let movie of movies) {
-      console.log(movie);
       if (movie.poster_path) {
         const m = {
           //type as in TV or Movie
-          mediaTitle: movie.title,
+          mediaTitle: movie.title || movie.name,
           mediaType: movie.media_type,
           mediaPlot: movie.overview,
-          movieYear: movie.release_date,
-          seriesYear: movie.first_air_date,
+          movieYear: movie.release_date || movie.first_air_date,
           mediaPoster: movie.poster_path,
         };
         results.push(m);
-        console.log(m);
       }
-    };
+    }
     res.json(results.slice(0, 10));
   } catch (error) {
     res.status(500).send(error);

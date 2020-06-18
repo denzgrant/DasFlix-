@@ -66,7 +66,6 @@ $(document).ready(() => {
         })
             // After the data comes back from the API
             .then((response) => {
-                console.log(response);
                 let tvArr = response.media;
                 tvArr.forEach((movie) => {
                     let thisMovieCard = `
@@ -74,10 +73,6 @@ $(document).ready(() => {
                   <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
 <a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-<div class="flip-card-back">
-      <h2> ${movie.original_title} </h2>
-      <p> ${movie.overview} </p>
-      </div>
       </li>
 `;
                     $('#movie-bottom-list').prepend(thisMovieCard);
@@ -207,10 +202,6 @@ $(document).ready(() => {
                 <li class="glide__slide">
                 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
                 <a data-title="${movie.name}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-                <div class="flip-card-back">
-                <h2> ${movie.title} </h2>
-                <p> ${movie.overview} </p>
-                </div>
                 </li>
 `;
                     $('#movie-top-list').prepend(thisMovieCard);
@@ -273,10 +264,6 @@ $(document).ready(() => {
                   <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.original_title}">
 <a data-title="${movie.original_title}" data-image="http://image.tmdb.org/t/p/w185//${movie.poster_path}" data-overview="${movie.overview}" href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-<div class="flip-card-back">
-      <h2> ${movie.original_title} </h2>
-      <p> ${movie.overview} </p>
-      </div>
       </li>
 `;
                     $('#movie-top-list').prepend(thisMovieCard);
@@ -513,18 +500,25 @@ $(document).ready(() => {
         console.log(listid);
         const showDaMovies = (data) => {
             let movieArr = data.media;
+            console.log(data.media);
             $('#watchlists').empty();
             $('#watchlist-view').hide();
             movieArr.forEach((listObj) => {
                 let listLi = `
-<li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
-<div>
-              <h2>${listObj.title}</h2>
-              <p>${listObj.summary}</p>
-              </div>
-          <div class="d-flex">
-          </div>
-      </li>
+                <div class="card mb-4" style="max-width: 340px; float: right; margin: 2px;">
+                <div class="row no-gutters">         
+                <div class="col-md-4">    
+                      <img class="card-img-top"  src="${listObj.icon}" alt="${listObj.title}">
+                      </div>
+                <div class="col-md-8">
+                      <div class="card-body">
+                      <h5 class="card-title text-dark"">${listObj.title}</h5>
+
+                      <p class="card-text text-dark" style="font-weight: bold;">${listObj.summary}<br>Type: ${listObj.media_type}</p>
+                      </div>
+                    </div>
+                    </div>                  
+                </div>
       `;
                 $('#watchlists').append(listLi);
             });
