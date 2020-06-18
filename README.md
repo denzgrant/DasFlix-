@@ -4,7 +4,7 @@
 
 # DasFLix :tv:
 http://www.dasflix.com/ \
-DasFlix is a CRUD MVC project by University of Arizona Students: <a href="https://github.com/azu20" target="_blank">Azucena Gonzalez</a>, <a href="https://github.com/denzgrant">Denzell Grant</a>, and <a href="https://github.com/stephenstuder">Stephen Studer</a>. Team Name: House Targaryen #FireAndBlood:fire::dragon_face:. DasFlix is a clone of a streaming service that uses TheMovieDB API and allows the user to create a watchlist. The watchlist is then populated by searching or selecting results from what's trending. 
+DasFlix is a CRUD MVC project by University of Arizona Students: <a href="https://github.com/azu20" target="_blank">Azucena Gonzalez</a>, <a href="https://github.com/denzgrant">Denzell Grant</a>, and <a href="https://github.com/stephenstuder">Stephen Studer</a>. Team Name: House Targaryen #FireAndBlood:fire::dragon_face:. DasFlix is a clone of a streaming service that uses TheMovieDB API and allows the user to create a watchlist. The watchlist is then populated by searching or selecting results from what's currently trending. 
 
 **Warning: This site is non-streaming since we don't own the licensing rights** 
 ---
