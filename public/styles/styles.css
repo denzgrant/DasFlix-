@@ -200,3 +200,10 @@ section.container-fluid {
     #ex1 li{
       color: black;
     }
+     .list-group-item:hover{
+      background: var(--dark-color);
+      color: white !important;
+    } 
+    .modal {
+      height: 50%;
+    }

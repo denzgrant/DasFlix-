@@ -85,7 +85,7 @@ $(document).ready(() => {
                 });
             });
     };
-    // queryTrending();
+     queryTrending();
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // //Produce 10 titles based on a query
@@ -212,7 +212,7 @@ $(document).ready(() => {
 
         });
     });
-    // tenShows();
+     tenShows();
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 titles based on a query
@@ -289,8 +289,8 @@ $(document).ready(() => {
     /***************************************************************************************/
     //-	Delete a movie/show of a watchlist with an id
     /***************************************************************************************/
-    $('.media-delete').on('click', function (event) {
-        var id = $(this).data('id');
+    $('#media-delete').on('click', function (event) {
+        var id = $(this).data('listid');
         // Send the DELETE request.
         $.ajax('/api/media/' + id, {
             type: 'DELETE'
@@ -434,12 +434,13 @@ $(document).ready(() => {
 
 
 
-    $('#search').on('click', '#watchlist-button', function () {
+    $('.container-fluid').on('click', '#watchlist-button', function () {
         let currentUser = $('#user-info').data('user');
         console.log(currentUser);
         $('#ex1').empty();
         const listIntoModal = (data) => {
           $('#ex1').empty();
+          
           data.forEach((listObj) => {
               let listLi = `
             <li class="list-group-item" data-listid="${listObj.id}" id="pickList">${listObj.name}</li>
@@ -468,6 +469,8 @@ $(document).ready(() => {
                "listId": listid,
                "provider": "hulu"
            });
+           $("#ex1").hide();
+           $(".jquery-modal").hide();
       });
 
 
@@ -497,6 +500,7 @@ $(document).ready(() => {
       const showDaMovies = (data) => {
         let movieArr = data.media;
         $('#watchlists').empty();
+        $('#watchlist-view').hide();
         movieArr.forEach((listObj) => {
           let listLi = `
 <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
@@ -505,7 +509,6 @@ $(document).ready(() => {
               <p>${listObj.summary}</p>
               </div>
           <div class="d-flex">
-          <a data-listid="${listObj.id}" "href="#remove-movie" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
           </div>
       </li>
       `;
