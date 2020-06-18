@@ -9,7 +9,6 @@
           </div>
           <div id="user-info" data-user="{{user.id}}" class="col-lg-6 d-flex align-items-center justify-content-end">
             {{#if user}}
-            <h2>This is our Home Page!</h2>
             <a href="/watchlists" class="btn btn-primary">Watchlist</a>
             <a href="/logout" class="btn btn-primary">Log Out</a>
             {{else}}
@@ -25,16 +24,8 @@
 
     </div>
     <div class="row p-5" id="filters">
-      <div class="col-lg-12 d-flex align-items-center justify-content-between">
-        <div>
-          <a href="" id="tv-shows-button" class="btn btn-primary">TV Shows</a>
-          <a href="" id="movies-button" class="btn btn-primary">Movies</a>
-        </div>
-        <div>
-          <input type="text" placeholder="search by movie" id="submit-query">
-          <input type="submit" id="submit">
-        </div>
-      </div>
+      <input type="text" placeholder="search by movie" id="submit-query">
+      <input type="submit" id="submit">
     </div>
 
     <div id="search">
@@ -42,7 +33,7 @@
     </div>
     <!-- Modal HTML embedded directly into document -->
     <div id="ex1" class="modal list-group">
-      
+
     </div>
 
     <!-- Link to open the modal -->
