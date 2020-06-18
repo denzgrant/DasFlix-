@@ -1,4 +1,5 @@
 $(document).ready(() => {
+
     var watchlists;
 
     function wait() {
@@ -24,7 +25,17 @@ $(document).ready(() => {
         $('#myInput').trigger('focus');
     });
 
+
     //On click add a movie to a chosen watchlist
+    $("#search").on("click", "#watchlist-button", function () {
+        console.log($(this).parent());
+        $("#ex1").empty();
+        const watchList = getWatchlists();
+
+        $("#ex1").append('<li>My Favorite</li>')
+        //run call for watchlists 
+        //load them into modals
+    })
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
@@ -37,18 +48,18 @@ $(document).ready(() => {
         let queryURL = `/api/trending/`;
         let data;
         let glideContainer = `    
-      
+          
     <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides" id="movie-bottom-list">        
-    </ul>
+      <ul class="glide__slides" id="movie-bottom-list">        
+      </ul>
     </div>
-    </div>
-    `;
+  </div>
+`;
         $('#showcase').append(glideContainer);
 
-        $('#poster').click(function () {
-            alert('test');
+        $("#poster").click(function () {
+            alert("test");
         });
 
         $.ajax({
@@ -62,19 +73,19 @@ $(document).ready(() => {
                     let thisMovieCard = `
                   
                   <li class="glide__slide">
-                  <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
-                  <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-                  <div class="flip-card-back">
-                  <h2> ${movie.title} </h2>
-                  <p> ${movie.overview} </p>
-                  </div>
+<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
+<a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+<div class="flip-card-back">
+      <h2> ${movie.title} </h2>
+      <p> ${movie.overview} </p>
+      </div>
       </li>
-      `;
+`;
                     $('#movie-bottom-list').prepend(thisMovieCard);
                 });
             });
     };
-    queryTrending();
+    // queryTrending();
 
     ///////////////////////////////////////////////////////////////////////////////////////////
     // //Produce 10 titles based on a query
@@ -83,7 +94,7 @@ $(document).ready(() => {
     function queryThirdPartyAPI(searchTerm) {
         let queryURL = `/api/mediaSearch/${searchTerm}`;
         let glideContainer = `      
-  <div class="glide search">
+        <div class="glide search">
     <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides" id="movie-search-list">        
     </ul>
@@ -103,17 +114,18 @@ $(document).ready(() => {
                 let thisMovieCard = `
                 <li class="glide__slide">
                 <img width="185" src="http://image.tmdb.org/t/p/w185//${response.mediaPoster}" alt="${response.mediaTitle}">
-                <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-                <div class="flip-card-back">
-                <h2> ${response.name} </h2>
-                <p> ${response.mediaPlot} </p>
-                </div>
-                </li>
-                `;
+      <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+      <div class="flip-card-back">
+      <h2> ${response.name} </h2>
+      <p> ${response.mediaPlot} </p>
+      </div>
+      </li>
+      `;
                 console.log(thisMovieCard);
                 $('#movie-search-list').append(thisMovieCard);
             });
     }
+
 
     $('#submit').on('click', () => {
         let searchTerm = $('#submit-query').val();
@@ -126,7 +138,7 @@ $(document).ready(() => {
         let queryURL = `/api/tenShows/`;
         let data;
         let glideContainer = `      
-      <div class="glide search">
+        <div class="glide search">
     <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides" id="movie-top-list">        
     </ul>
@@ -146,22 +158,28 @@ $(document).ready(() => {
                     let thisMovieCard = `
                 <li class="glide__slide">
                 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
-                <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-                <div class="flip-card-back">
+<a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+<div class="flip-card-back">
 <h2> ${movie.title} </h2>
 <p> ${movie.overview} </p>
   </div>
-  </li>
-  `;
+</li>
+`;
                     $('#movie-top-list').prepend(thisMovieCard);
                 });
-                //$("#theData").text(response.mediaTitle);
             });
     };
-    $('#tv-shows-button').on('click', () => {
-        tenShows();
+    $('#tv-shows-button').on('click', (event) => {
+        event.preventDefault();
+        $('#movie-top-list').ready(function () {
+            $('#movie-bottom-list').hide();
+            // $('#movie-bottom-list').hide();
+            // trending();
+            tenShows();
+
+        });
     });
-    tenShows();
+    // tenShows();
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 titles based on a query
@@ -172,14 +190,15 @@ $(document).ready(() => {
     /////////////////////////////////////////////////////////////////////////////////////////
 
     let getWatchlists = () => {
-        let queryURL = `/api/users/1/watchlists`;
+        let queryURL = `/api/users/1/watchlists`
         $.ajax({
             url: queryURL,
             method: 'GET'
-        }).then((response) => {
-            console.log(response);
-        });
-    };
+        })
+            .then((response) => {
+                console.log(response)
+            })
+    }
 
     let tenMovies = () => {
         let queryURL = `/api/tenMovies/`;
@@ -188,10 +207,10 @@ $(document).ready(() => {
         <div class="glide search">
         <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides" id="movie-top-list">        
-        </ul>
-        </div>
-        </div>
-        `;
+      </ul>
+      </div>
+      </div>
+`;
         $('#search').empty();
         $('#search').append(glideContainer);
 
@@ -202,24 +221,32 @@ $(document).ready(() => {
             // After the data comes back from the API
             .then((response) => {
                 let movieArray = response.media;
+                console.log(movieArray);
                 movieArray.forEach((movie) => {
                     let thisMovieCard = `
                   <li class="glide__slide">
-                  <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
 <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
 <div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
       </div>
       </li>
-      `;
+`;
                     $('#movie-top-list').prepend(thisMovieCard);
                 });
             });
     };
+    // tenMovies();
+    $('#movies-button').on('click', (event) => {
+        event.preventDefault();
+        $('#movie-top-list').ready(function () {
+            $('#movie-bottom-list').hide();
+            // $('#movie-bottom-list').hide();
+            // trending();
+            tenMovies();
 
-    $('#movies-button').on('click', () => {
-        tenMovies();
+        });
     });
 
     /***************************************************************************************/
@@ -241,6 +268,7 @@ $(document).ready(() => {
         });
     });
 
+
     /***************************************************************************************/
     //-	Create a movie (to put inside of list)
     /***************************************************************************************/
@@ -258,40 +286,31 @@ $(document).ready(() => {
                 console.log('there was an error creating movie', movie);
             });
     };
-    // createMovie({
-    //     "title": "shrek",
-    //     "media_type": "movie",
-    //     "external_id": "45646fsdsag",
-    //     "summary": "story about SCottish Independence Wars",
-    //     "icon": "link to icon",
-    //     "listId": 1,
-    //     "provider": "hulu"
-    // });
-    //$submitBtn.on("click", handleFormSubmit);
-    //$exampleList.on("click", ".delete", handleDeleteBtnClick)
 
-    ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working
+    ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working 
     const getListsByUserId = async (userId, cb) => {
         console.log('about to get lists for user', userId);
         $.ajax(`/api/users/${userId}/lists`, {
-            method: 'GET'
+            method: 'GET',
         })
             .then(function (lists) {
+
                 console.log('lists', lists);
                 cb(lists);
             })
             .catch(function () {
                 console.log('there was an error ');
             });
-        console.log(watchlists);
+        console.log(watchlists)
         return watchlists;
+
     };
 
-    ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working
+    ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working 
     const getMoviesByList = (listId, cb) => {
         console.log('about to get movies in list', listId);
         $.ajax(`api/lists/${listId}/media`, {
-            method: 'GET'
+            method: 'GET',
         })
             .then(function (media) {
                 console.log('media', media);
@@ -302,22 +321,24 @@ $(document).ready(() => {
             });
     };
 
-    ///////////////////////// createList(userId,listName) ////////// *******Working
+    ///////////////////////// createList(userId,listName) ////////// *******Working  
     const createList = (userId, listName) => {
         let newList = {
-            name: listName,
-            userId: userId
+            "name": listName,
+            "userId": userId
         };
-        console.log('about to create list', newList);
-        $.ajax('/api/lists', {
-            method: 'POST',
+        console.log("about to create list", newList);
+        $.ajax("/api/lists", {
+            method: "POST",
             data: newList
         })
-            .then(function () {
-                console.log('Created list', newList);
-            })
-            .catch(function () {
-                console.log('something failed', newList);
+            .then(
+                function () {
+                    console.log("Created list", newList);
+
+                }
+            ).catch(function () {
+                console.log("something failed", newList);
             });
     };
     //test code once elements created we will update this code
@@ -327,33 +348,36 @@ $(document).ready(() => {
     //     createList(1, listname);
     // });
 
-    ///////////////////////// deleteList(listId) ////////// *******Working
+    ///////////////////////// deleteList(listId) ////////// *******Working  
     const deleteList = (listId) => {
-        console.log('about to delete list', listId);
+        console.log("about to delete list", listId);
         $.ajax(`/api/lists/${listId}`, {
-            method: 'DELETE'
+            method: "DELETE"
         })
-            .then(function () {
-                console.log('deleted list', listId);
-            })
-            .catch(function () {
-                console.log('something failed', listId);
+            .then(
+                function () {
+                    console.log("deleted list", listId);
+
+                }
+            ).catch(function () {
+                console.log("something failed", listId);
             });
     };
 
-    ///////////////////////// showMostWatchlistedTitles(cb) ////////// *******Working
+    ///////////////////////// showMostWatchlistedTitles(cb) ////////// *******Working  
     const showMostWatchlistedTitles = (cb) => {
-        console.log('about to get most watched list');
+        console.log("about to get most watched list");
 
         $.ajax(`/api/media/mostwatched`, {
-            method: 'GET'
+            method: "GET"
         })
-            .then(function (data) {
-                console.log('most watched', data);
-                cb(data);
-            })
-            .catch(function () {
-                console.log('something failed');
+            .then(
+                function (data) {
+                    console.log("most watched", data);
+                    cb(data);
+                }
+            ).catch(function () {
+                console.log("something failed");
             });
     };
 
@@ -361,88 +385,45 @@ $(document).ready(() => {
     // $("#testbtn").on("click", function() {
 
     const my_happy_callback = (result) => {
-        console.log('calling from within my test', result);
+        console.log("calling from within my test", result);
         const the_movies = result.media;
         for (let list of the_movies) {
             console.log(list);
-        }
+        };
     };
 
     //     getMoviesByList(1, my_happy_callback);
     // });
 
     let cb = (data) => {
-        console.log('calling from within my test', data);
+        console.log("calling from within my test", data);
         return data;
     };
 
-    //Add movie to a watchlist
 
-    $('#search').on('click', '#watchlist-button', function () {
-        let currentUser = $('#user-info').data('user');
-        console.log(currentUser);
-        $('#ex1').empty();
-        const listIntoModal = (data) => {
-          $('#ex1').empty();
-          data.forEach((listObj) => {
-              let listLi = `
-            <li class="list-group-item" data-listid="${listObj.id}" id="pickList">${listObj.name}</li>
-          `;
-              $('#ex1').append(listLi);
-          });
-      };
-     
-        getListsByUserId(currentUser, listIntoModal);
-        //Use watchlist to add movie to movies
-    });
-
-
-
-
-
-
-    // Create list on button click
-
-    $('#watchlist-view').on('click', function () {
-        let currentUser = $('#watchlist-view').data('user');
-        let listName = prompt('enter list name');
-        createList(currentUser, listName);
-        buildLists();
-        location.reload();
-    });
-
-    // Delete Watchlist
-    $('#watchlists').on('click', '#watchlist-remove', function () {
-        let listid = $(this).data('listid');
-        let currentUser = $('#watchlist-view').data('user');
-        deleteList(listid);
-        buildLists();
-        location.reload();
-    });
-
-    //Dynamically add lists on page load
     if (window.location.href === 'http://localhost:8080/watchlists') {
-        function buildLists() {
-            let currentUser = $('#watchlist-view').data('user');
-            const getResult = (data) => {
-                $('#watchlists').empty();
-                data.forEach((listObj) => {
-                    let listLi = `
-          <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
-          <div>
-                        <h2>${listObj.name}</h2>
-                        </div>
-                    <div class="d-flex">
-                    <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
-                    <a data-listid="${listObj.id}" "href="#remove" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
-                    </div>
-                </li>
-                `;
-                    $('#watchlists').append(listLi);
-                });
-            };
-            getListsByUserId(currentUser, getResult);
-        }
-        buildLists();
+        let currentUser = $("#watchlist-view").data("user");
+        console.log(currentUser);
+        const getResult = (data) => {
+            console.log(data);
+            $("#watchlists").empty();
+            data.forEach((listObj) => {
+                console.log(listObj);
+                let listLi = `
+         <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
+                   <div data-listid="${listObj.id}">
+                       <h2>${listObj.name}</h2>
+                   </div>
+                   <div class="d-flex">
+                       <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
+                       <a href="#remove" id="watchlist-view" class="btn btn-primary">Remove Watchlist</a>
+                   </div>
+               </li>
+         `
+                $("#watchlists").append(listLi);
+            });
+        };
+        getListsByUserId(currentUser, getResult);
     }
+
 });
