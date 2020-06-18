@@ -409,28 +409,30 @@ $('#search').empty();
       
     });
 
-
-
-
+    // Delete Watchlist
+    $("#watchlists").on("click", "#watchlist-remove", function () {
+      let listid = $(this).data("listid");
+      let currentUser = $("#watchlist-view").data("user");
+      deleteList(listid);
+      buildLists();
+      location.reload();
+    })
 
    //Dynamically add lists on page load 
     if(window.location.href === 'http://localhost:8080/watchlists'){
     function buildLists(){
       let currentUser = $("#watchlist-view").data("user");
-      console.log(currentUser);
       const getResult = (data) => {
-         console.log(data);
          $("#watchlists").empty();    
          data.forEach((listObj) => {
-          console.log(listObj);
           let listLi = `
           <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
-                    <div data-listid="${listObj.id}">
+                    <div>
                         <h2>${listObj.name}</h2>
                     </div>
                     <div class="d-flex">
                         <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
-                        <a href="#remove" id="watchlist-view" class="btn btn-primary">Remove Watchlist</a>
+                        <a data-listid="${listObj.id}" "href="#remove" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
                     </div>
                 </li>
           `
