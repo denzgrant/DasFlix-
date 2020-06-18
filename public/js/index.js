@@ -330,8 +330,6 @@ $(document).ready(() => {
             .catch(function () {
                 console.log('there was an error ');
             });
-        console.log(watchlists);
-        return watchlists;
     };
 
     ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working
@@ -505,7 +503,7 @@ $(document).ready(() => {
             $('#watchlist-view').hide();
             movieArr.forEach((listObj) => {
                 let listLi = `
-                <div class="card mb-4" style="max-width: 340px; float: right; margin: 2px;">
+                <div class="card card-taller mb-4" style="max-width: 340px; float: right; margin: 2px;">
                 <div class="row no-gutters">         
                 <div class="col-md-4">    
                       <img class="card-img-top"  src="${listObj.icon}" alt="${listObj.title}">
@@ -514,7 +512,7 @@ $(document).ready(() => {
                       <div class="card-body">
                       <h5 class="card-title text-dark"">${listObj.title}</h5>
 
-                      <p class="card-text text-dark" style="font-weight: bold;">${listObj.summary}<br>Type: ${listObj.media_type}</p>
+                      <p class="card-text text-dark text" style="font-weight: bold;">${listObj.summary}<br>Type: ${listObj.media_type}</p>
                       </div>
                     </div>
                     </div>                  
