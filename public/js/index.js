@@ -280,9 +280,8 @@ $(document).ready(() => {
         })
             .then(function () {
                 console.log('created movie', movie);
-                location.reload();
             })
-            .error(function () {
+            .catch(function () {
                 console.log('there was an error creating movie', movie);
             });
     };
@@ -401,29 +400,123 @@ $(document).ready(() => {
     };
 
 
-    if (window.location.href === 'http://localhost:8080/watchlists') {
-        let currentUser = $("#watchlist-view").data("user");
+
+    $('#search').on('click', '#watchlist-button', function () {
+        let currentUser = $('#user-info').data('user');
         console.log(currentUser);
-        const getResult = (data) => {
-            console.log(data);
-            $("#watchlists").empty();
-            data.forEach((listObj) => {
-                console.log(listObj);
-                let listLi = `
-         <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
-                   <div data-listid="${listObj.id}">
-                       <h2>${listObj.name}</h2>
-                   </div>
-                   <div class="d-flex">
-                       <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
-                       <a href="#remove" id="watchlist-view" class="btn btn-primary">Remove Watchlist</a>
-                   </div>
-               </li>
-         `
-                $("#watchlists").append(listLi);
-            });
-        };
-        getListsByUserId(currentUser, getResult);
+        $('#ex1').empty();
+        const listIntoModal = (data) => {
+          $('#ex1').empty();
+          data.forEach((listObj) => {
+              let listLi = `
+            <li class="list-group-item" data-listid="${listObj.id}" id="pickList">${listObj.name}</li>
+          `;
+              $('#ex1').append(listLi);
+          });
+      };
+
+      getListsByUserId(currentUser, listIntoModal);
+
+      
+      
+      //Use watchlist to add movie to movies
+      $('#ex1').on('click', '#pickList', function () {
+        let listid = $(this).data('listid');
+        console.log(listid);
+        
+        //COME BACK TO THIS
+        
+        createMovie({
+              "title": "shrek",
+               "media_type": "movie",
+               "external_id": "45646fsdsag",
+               "summary": "story about SCottish Independence Wars",
+               "icon": "link to icon",
+               "listId": listid,
+               "provider": "hulu"
+           });
+      });
+
+
+    });
+
+
+
+
+
+
+
+
+    // Create list on button click
+
+    $('#watchlist-view').on('click', function () {
+        let currentUser = $('#watchlist-view').data('user');
+        let listName = prompt('enter list name');
+        createList(currentUser, listName);
+        buildLists();
+        location.reload();
+    });
+
+    //Show Watchlist
+    $('#watchlists').on('click', '#watchlist-view', function(){
+      let listid = $(this).data('listid');
+      console.log(listid);
+      const showDaMovies = (data) => {
+        let movieArr = data.media;
+        $('#watchlists').empty();
+        movieArr.forEach((listObj) => {
+          let listLi = `
+<li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
+<div>
+              <h2>${listObj.title}</h2>
+              <p>${listObj.summary}</p>
+              </div>
+          <div class="d-flex">
+          <a data-listid="${listObj.id}" "href="#remove-movie" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
+          </div>
+      </li>
+      `;
+          $('#watchlists').append(listLi);
+      });
+      }
+      getMoviesByList(listid, showDaMovies)
+    });
+
+
+    // Delete Watchlist
+    $('#watchlists').on('click', '#watchlist-remove', function () {
+        let listid = $(this).data('listid');
+        let currentUser = $('#watchlist-view').data('user');
+        deleteList(listid);
+        buildLists();
+        location.reload();
+    });
+
+    //Dynamically add lists on page load
+    if (window.location.href === 'http://localhost:8080/watchlists') {
+        function buildLists() {
+            let currentUser = $('#watchlist-view').data('user');
+            const getResult = (data) => {
+                $('#watchlists').empty();
+                data.forEach((listObj) => {
+                    let listLi = `
+          <li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
+          <div>
+                        <h2>${listObj.name}</h2>
+                        </div>
+                    <div class="d-flex">
+                    <a data-listid="${listObj.id}" href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
+                    <a data-listid="${listObj.id}" "href="#remove" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
+                    </div>
+                </li>
+                `;
+                    $('#watchlists').append(listLi);
+                });
+            };
+            getListsByUserId(currentUser, getResult);
+        }
+        buildLists();
+
     }
 
 });
