@@ -10,12 +10,10 @@ html,
 body {
     max-width: 100%;
     overflow-x: hidden;
+    background-color: var(--dark-color) !important;
 }
 .container {
     max-width: 100vw;
-}
-body {
-    color: white;
 }
 h1 {
     font-family: var(--logo-font);
@@ -37,7 +35,7 @@ li {
     color: white;
 }
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color) !important;
 }
 .logo {
     margin-left: 10px;
@@ -51,7 +49,7 @@ li {
     justify-content: center;
     align-items: center;
     z-index: 0;
-    width: 100%;
+    width: 101%;
     height: 100vh;
     position: relative;
     background: url('../assets/images/movies-login.jpg') no-repeat center center/cover;
