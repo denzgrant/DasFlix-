@@ -252,9 +252,8 @@ $(document).ready(() => {
         })
             .then(function () {
                 console.log('created movie', movie);
-                location.reload();
             })
-            .error(function () {
+            .catch(function () {
                 console.log('there was an error creating movie', movie);
             });
     };
@@ -391,10 +390,33 @@ $(document).ready(() => {
               $('#ex1').append(listLi);
           });
       };
-     
-        getListsByUserId(currentUser, listIntoModal);
-        //Use watchlist to add movie to movies
+
+      getListsByUserId(currentUser, listIntoModal);
+
+      
+      
+      //Use watchlist to add movie to movies
+      $('#ex1').on('click', '#pickList', function () {
+        let listid = $(this).data('listid');
+        console.log(listid);
+        
+        //COME BACK TO THIS
+        
+        createMovie({
+              "title": "shrek",
+               "media_type": "movie",
+               "external_id": "45646fsdsag",
+               "summary": "story about SCottish Independence Wars",
+               "icon": "link to icon",
+               "listId": listid,
+               "provider": "hulu"
+           });
+      });
+
+
     });
+
+
 
 
 
@@ -410,6 +432,32 @@ $(document).ready(() => {
         buildLists();
         location.reload();
     });
+
+    //Show Watchlist
+    $('#watchlists').on('click', '#watchlist-view', function(){
+      let listid = $(this).data('listid');
+      console.log(listid);
+      const showDaMovies = (data) => {
+        let movieArr = data.media;
+        $('#watchlists').empty();
+        movieArr.forEach((listObj) => {
+          let listLi = `
+<li class="watchlist-box d-flex flex-column justify-content-around align-items-center">
+<div>
+              <h2>${listObj.title}</h2>
+              <p>${listObj.summary}</p>
+              </div>
+          <div class="d-flex">
+          <a data-listid="${listObj.id}" "href="#remove-movie" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
+          </div>
+      </li>
+      `;
+          $('#watchlists').append(listLi);
+      });
+      }
+      getMoviesByList(listid, showDaMovies)
+    });
+
 
     // Delete Watchlist
     $('#watchlists').on('click', '#watchlist-remove', function () {
@@ -433,7 +481,7 @@ $(document).ready(() => {
                         <h2>${listObj.name}</h2>
                         </div>
                     <div class="d-flex">
-                    <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
+                    <a data-listid="${listObj.id}" href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
                     <a data-listid="${listObj.id}" "href="#remove" id="watchlist-remove" class="btn btn-primary">Remove Watchlist</a>
                     </div>
                 </li>
