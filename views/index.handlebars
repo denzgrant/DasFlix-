@@ -7,7 +7,7 @@
             <img class="popcorn" src="../assets/images/popcorn.png" alt="Popcorn">
             <h1 a href="/index">DASFLIX</h1>
           </div>
-          <div class="col-lg-6 d-flex align-items-center justify-content-end">
+          <div id="user-info" data-user="{{user.id}}" class="col-lg-6 d-flex align-items-center justify-content-end">
             {{#if user}}
             <h2>This is our Home Page!</h2>
             <a href="/watchlists" class="btn btn-primary">Watchlist</a>
@@ -41,7 +41,7 @@
 
     </div>
     <!-- Modal HTML embedded directly into document -->
-    <div id="ex1" class="modal">
+    <div id="ex1" class="modal list-group">
       
     </div>
 
