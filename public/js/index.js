@@ -393,7 +393,7 @@ $('#search').empty();
        return data;
    };
     
-    if(window.location.href === 'http://localhost:8080/watchlists'){
+    //if(window.location.href === '/watchlists'){
      let currentUser = $("#watchlist-view").data("user");
      console.log(currentUser);
      let watchlists = getListsByUserId(currentUser);
@@ -403,7 +403,7 @@ $('#search').empty();
      //let watc = `
      
      
-    }
+    //}
 
   });
   
