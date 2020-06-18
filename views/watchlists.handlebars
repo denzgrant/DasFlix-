@@ -9,7 +9,6 @@
                     </div>
                     <div class="col-lg-6 d-flex align-items-center justify-content-end">
                         {{#if user}}
-                        {{ user }}
                         <h2>This is our Home Page!</h2>
                         <a href="/" class="btn btn-primary">Home</a>
                         <a href="/login" class="btn btn-primary">Log Out</a>
@@ -23,7 +22,7 @@
         </div>
     </nav>
     <section id="placeholder" class="container-fluid p-5">
-        <a href="#create" id="watchlist-view" class="btn btn-primary mb-5">Create New Watchlist</a>
+        <a data-user="{{user.id}}"href="#create-watchlist" id="watchlist-view" class="btn btn-primary mb-5">Create New Watchlist</a>
         <ul class="watchlists-grid" id="watchlists">
 
             {{!-- List box that can be reused in index --}}
@@ -35,28 +34,6 @@
                     <a href="#view" id="watchlist-view" class="btn btn-primary">View Watchlist</a>
                     <a href="#remove" id="watchlist-view" class="btn btn-primary">Remove Watchlist</a>
                 </div>
-
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
-            </li>
-            <li class="watchlist-box d-flex justify-content-center align-items-center">
-                <h2>Title Here</h2>
             </li>
 
         </ul>

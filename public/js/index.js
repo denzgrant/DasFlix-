@@ -37,14 +37,14 @@ $(document).ready(() => {
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
     /////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 popular titles
     /////////////////////////////////////////////////////////////////////////////////////////
     let queryTrending = () => {
-        let queryURL = `/api/trending/`;
-        let data;
-        let glideContainer = `    
+      let queryURL = `/api/trending/`;
+      let data;
+      let glideContainer = `    
           
     <div class="glide showcase">
     <div class="glide__track" data-glide-el="track">
@@ -53,37 +53,37 @@ $(document).ready(() => {
     </div>
   </div>
 `;
-        $('#showcase').append(glideContainer);
+$('#showcase').append(glideContainer);
 
         $("#poster").click(function () {
             alert("test");
-        });
+          });
 
-        $.ajax({
+          $.ajax({
             url: queryURL,
             method: 'GET'
         })
             // After the data comes back from the API
             .then((response) => {
-                let tvArr = response.media;
+              let tvArr = response.media;
                 tvArr.forEach((movie) => {
-                    let thisMovieCard = `
-        
-<li class="glide__slide">
+                  let thisMovieCard = `
+                  
+                  <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" id="poster" alt="${movie.title}">
 <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-  <div class="flip-card-back">
+<div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
-  </div>
-  </li>
+      </div>
+      </li>
 `;
-                    $('#movie-bottom-list').prepend(thisMovieCard);
-                });
+$('#movie-bottom-list').prepend(thisMovieCard);
+});
             });
-    };
+          };
     queryTrending();
-
+    
     ///////////////////////////////////////////////////////////////////////////////////////////
     // //Produce 10 titles based on a query
     ///////////////////////////////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ $(document).ready(() => {
     function queryThirdPartyAPI(searchTerm) {
         let queryURL = `/api/mediaSearch/${searchTerm}`;
         let glideContainer = `      
-    <div class="glide search">
+        <div class="glide search">
     <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides" id="movie-search-list">        
     </ul>
@@ -100,17 +100,17 @@ $(document).ready(() => {
     `;
         $('#search').empty();
         $('#search').append(glideContainer);
-
+        
         $.ajax({
             url: queryURL,
             method: 'GET'
-        })
+          })
             // After the data comes back from the API
             .then((response) => {
                 console.log(response);
                 let thisMovieCard = `
-      <li class="glide__slide">
-      <img width="185" src="http://image.tmdb.org/t/p/w185//${response.mediaPoster}" alt="${response.mediaTitle}">
+                <li class="glide__slide">
+                <img width="185" src="http://image.tmdb.org/t/p/w185//${response.mediaPoster}" alt="${response.mediaTitle}">
       <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
       <div class="flip-card-back">
       <h2> ${response.name} </h2>
@@ -120,45 +120,45 @@ $(document).ready(() => {
       `;
                 console.log(thisMovieCard);
                 $('#movie-search-list').append(thisMovieCard);
-            });
+              });
     }
-
-
+    
+    
     $('#submit').on('click', () => {
-        let searchTerm = $('#submit-query').val();
-        queryThirdPartyAPI(searchTerm);
+      let searchTerm = $('#submit-query').val();
+      queryThirdPartyAPI(searchTerm);
     });
     ///////////////////////////////////////////////////////////////////////////////////////////
     ////Produce 10 titles tv show only
     ///////////////////////////////////////////////////////////////////////////////////////////
     let tenShows = () => {
-        let queryURL = `/api/tenShows/`;
+      let queryURL = `/api/tenShows/`;
         let data;
         let glideContainer = `      
-    <div class="glide search">
+        <div class="glide search">
     <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides" id="movie-top-list">        
-      </ul>
+    <ul class="glide__slides" id="movie-top-list">        
+    </ul>
     </div>
-  </div>
-`;
+    </div>
+    `;
         $('#search').append(glideContainer);
-
+        
         $.ajax({
-            url: queryURL,
-            method: 'GET'
+          url: queryURL,
+          method: 'GET'
         })
-            // After the data comes back from the API
+        // After the data comes back from the API
             .then((response) => {
-                let movieArray = response.media;
-                movieArray.forEach((movie) => {
-                    let thisMovieCard = `
-<li class="glide__slide">
-<img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
+              let movieArray = response.media;
+              movieArray.forEach((movie) => {
+                let thisMovieCard = `
+                <li class="glide__slide">
+                <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
 <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-  <div class="flip-card-back">
-      <h2> ${movie.title} </h2>
-      <p> ${movie.overview} </p>
+<div class="flip-card-back">
+<h2> ${movie.title} </h2>
+<p> ${movie.overview} </p>
   </div>
 </li>
 `;
@@ -168,74 +168,74 @@ $(document).ready(() => {
             });
     };
     $('#tv-shows-button').on('click', () => {
-        tenShows();
+      tenShows();
     });
     tenShows();
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 titles based on a query
     /////////////////////////////////////////////////////////////////////////////////////////
-
+    
     /////////////////////////////////////////////////////////////////////////////////////////
     //Produce 10 titles movies only
     /////////////////////////////////////////////////////////////////////////////////////////
-
+    
     let getWatchlists = () => {
-        let queryURL = `/api/users/1/watchlists`
-        $.ajax({
-            url: queryURL,
+      let queryURL = `/api/users/1/watchlists`
+      $.ajax({
+        url: queryURL,
             method: 'GET'
-        })
-            .then((response) => {
-                console.log(response)
-            })
+          })
+          .then((response) => {
+            console.log(response)
+          })
     }
-
+    
     let tenMovies = () => {
         let queryURL = `/api/tenMovies/`;
         let data;
         let glideContainer = `      
-    <div class="glide search">
-    <div class="glide__track" data-glide-el="track">
-      <ul class="glide__slides" id="movie-top-list">        
+        <div class="glide search">
+        <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides" id="movie-top-list">        
       </ul>
-    </div>
-  </div>
+      </div>
+      </div>
 `;
-        $('#search').empty();
+$('#search').empty();
         $('#search').append(glideContainer);
-
+        
         $.ajax({
-            url: queryURL,
+          url: queryURL,
             method: 'GET'
-        })
-            // After the data comes back from the API
+          })
+          // After the data comes back from the API
             .then((response) => {
-                let movieArray = response.media;
+              let movieArray = response.media;
                 movieArray.forEach((movie) => {
-                    let thisMovieCard = `
-<li class="glide__slide">
+                  let thisMovieCard = `
+                  <li class="glide__slide">
 <img src="http://image.tmdb.org/t/p/w185//${movie.poster_path}" alt="${movie.title}">
 <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-  <div class="flip-card-back">
+<div class="flip-card-back">
       <h2> ${movie.title} </h2>
       <p> ${movie.overview} </p>
-  </div>
-</li>
+      </div>
+      </li>
 `;
                     $('#movie-top-list').prepend(thisMovieCard);
                 });
-            });
+              });
     };
-
+    
     $('#movies-button').on('click', () => {
-        tenMovies();
+      tenMovies();
     });
-
+    
     /***************************************************************************************/
     //-	Delete entire watchlist
     /***************************************************************************************/
-
+    
     /***************************************************************************************/
     //-	Delete a movie/show of a watchlist with an id
     /***************************************************************************************/
@@ -243,30 +243,30 @@ $(document).ready(() => {
         var id = $(this).data('id');
         // Send the DELETE request.
         $.ajax('/api/media/' + id, {
-            type: 'DELETE'
+          type: 'DELETE'
         }).then(function () {
-            console.log('List was deleted');
+          console.log('List was deleted');
             // Reload the page to get the updated list
             location.reload();
+          });
         });
-    });
-
+        
     
-    /***************************************************************************************/
+        /***************************************************************************************/
     //-	Create a movie (to put inside of list)
     /***************************************************************************************/
     const createMovie = (movie) => {
-        console.log('about to create media', movie);
+      console.log('about to create media', movie);
         $.ajax('/api/media', {
             method: 'POST',
             data: movie
-        })
+          })
             .then(function () {
-                console.log('created movie', movie);
+              console.log('created movie', movie);
                 location.reload();
-            })
+              })
             .error(function () {
-                console.log('there was an error creating movie', movie);
+              console.log('there was an error creating movie', movie);
             });
     };
     // createMovie({
@@ -283,31 +283,31 @@ $(document).ready(() => {
 
 
     ///////////////////////// getListsByUserId(userid,cb) ////////// *******Working 
-    const getListsByUserId = (userId, cb) => {
-        console.log('about to get lists for user', userId);
+    const getListsByUserId = (userId) => {
+      console.log('about to get lists for user', userId);
         $.ajax(`/api/users/${userId}/lists`, {
-            method: 'GET',
+          method: 'GET',
         })
             .then(function (lists) {
 
-                console.log('lists', lists);
-                cb(lists);
-            })
+              console.log('lists', lists);
+                return lists;
+              })
             .catch(function () {
                 console.log('there was an error ');
-            });
-
+              });
+              
     };
-
+    
     ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working 
     const getMoviesByList = (listId, cb) => {
-        console.log('about to get movies in list', listId);
-        $.ajax(`api/lists/${listId}/media`, {
-            method: 'GET',
-        })
+      console.log('about to get movies in list', listId);
+      $.ajax(`api/lists/${listId}/media`, {
+        method: 'GET',
+      })
         .then(function (media) {
-                console.log('media', media);
-                cb(media);
+          console.log('media', media);
+          cb(media);
             })
             .catch(function () {
                 console.log('there was an error ');
@@ -316,22 +316,22 @@ $(document).ready(() => {
 
     ///////////////////////// createList(userId,listName) ////////// *******Working  
     const createList = (userId, listName) => {
-        let newList = {
+      let newList = {
             "name": listName,
             "userId": userId
         };
         console.log("about to create list", newList);
         $.ajax("/api/lists", {
-            method: "POST",
+          method: "POST",
             data: newList
-        })
+          })
             .then(
                 function () {
                     console.log("Created list", newList);
                     
-                }
+                  }
             ).catch(function () {
-                console.log("something failed", newList);
+              console.log("something failed", newList);
             });
     };
     //test code once elements created we will update this code
@@ -341,53 +341,69 @@ $(document).ready(() => {
     //     createList(1, listname);
     // });
 
- ///////////////////////// deleteList(listId) ////////// *******Working  
+    ///////////////////////// deleteList(listId) ////////// *******Working  
     const deleteList = (listId) => {
         console.log("about to delete list", listId);
         $.ajax(`/api/lists/${listId}`, {
             method: "DELETE"
-        })
+          })
             .then(
-                function () {
+              function () {
                     console.log("deleted list", listId);
                    
-                }
+                  }
             ).catch(function () {
-                console.log("something failed", listId);
+              console.log("something failed", listId);
             });
-    };
-     
-    ///////////////////////// showMostWatchlistedTitles(cb) ////////// *******Working  
-    const showMostWatchlistedTitles = (cb) => {
+          };
+          
+          ///////////////////////// showMostWatchlistedTitles(cb) ////////// *******Working  
+          const showMostWatchlistedTitles = (cb) => {
         console.log("about to get most watched list");
-
+        
         $.ajax(`/api/media/mostwatched`, {
             method: "GET"
-        })
-            .then(
+          })
+          .then(
                 function (data) {
-                    console.log("most watched", data);
-                    cb(data);
+                  console.log("most watched", data);
+                  cb(data);
                 }
-            ).catch(function () {
+                ).catch(function () {
                 console.log("something failed");
-            });
-    };
-
+              });
+            };
+            
     // // HOW TO USE:
     // $("#testbtn").on("click", function() {
-
-    //     const my_happy_callback = (result) => {
-    //         console.log("calling from within my test",result);
-    //         const the_movies = result.media;
-    //         for (let list of the_movies) {
-    //             console.log(list);
-    //         };
-    //         // here you do the $("#whatever-element-you-create-to").append("<li> ${list.name}</li>")
-    //     };
-
+      
+           const my_happy_callback = (result) => {
+            console.log("calling from within my test",result);
+             const the_movies = result.media;
+             for (let list of the_movies) {
+                 console.log(list);
+             };
+         };
+    
     //     getMoviesByList(1, my_happy_callback);
     // });
-    
 
-});
+    let cb = (data) => {
+      console.log("calling from within my test", data);
+       return data;
+   };
+    
+    if(window.location.href === 'http://localhost:8080/watchlists'){
+     let currentUser = $("#watchlist-view").data("user");
+     console.log(currentUser);
+     let watchlists = getListsByUserId(currentUser);
+     console.log(watchlists);
+
+
+     //let watchlistLi = `
+     
+     
+    }
+
+  });
+  
