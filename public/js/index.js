@@ -24,15 +24,15 @@ $(document).ready(() => {
 
 
     //On click add a movie to a chosen watchlist
-    $("#search").on("click", "#watchlist-button", function () {
-        console.log($(this).parent());
-        $("#ex1").empty();
-        const watchList = getWatchlists();
+    // $("#search").on("click", "#watchlist-button", function () {
+    //     console.log($(this).parent());
+    //     $("#ex1").empty();
+    //     const watchList = getWatchlists();
 
-        $("#ex1").append('<li>My Favorite</li>')
-        //run call for watchlists 
-        //load them into modals
-    })
+    //     $("#ex1").append('<li>My Favorite</li>')
+    //     //run call for watchlists 
+    //     //load them into modals
+    // })
 
     /////////////////////////////////////////////////////////////////////////////////////////
     //3 party API call
@@ -88,42 +88,75 @@ $('#movie-bottom-list').prepend(thisMovieCard);
     // //Produce 10 titles based on a query
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    function queryThirdPartyAPI(searchTerm) {
-        let queryURL = `/api/mediaSearch/${searchTerm}`;
-        let glideContainer = `      
-        <div class="glide search">
-    <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides" id="movie-search-list">        
-    </ul>
-    </div>
+  function queryThirdPartyAPI(searchTerm) {
+    let queryURL = `/api/mediaSearch/${searchTerm}`;
+    let glideContainer = `      
+    <div id="movie-search-list">
     </div>
     `;
-        $('#search').empty();
-        $('#search').append(glideContainer);
-        
-        $.ajax({
-            url: queryURL,
-            method: 'GET'
-          })
-            // After the data comes back from the API
-            .then((response) => {
-                console.log(response);
-                let thisMovieCard = `
-                <li class="glide__slide">
-                <img width="185" src="http://image.tmdb.org/t/p/w185//${response.mediaPoster}" alt="${response.mediaTitle}">
-      <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
-      <div class="flip-card-back">
-      <h2> ${response.name} </h2>
-      <p> ${response.mediaPlot} </p>
-      </div>
-      </li>
-      `;
-                console.log(thisMovieCard);
-                $('#movie-search-list').append(thisMovieCard);
-              });
-    }
-    
-    
+    $('#search').empty();
+    $('#search').append(glideContainer);
+
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    })
+      // After the data comes back from the API
+      .then((movies) => {
+        if(movies.length === 0){
+          let thisMovieCard = 
+          `
+           
+            <div class="card mb-3" style="max-width: 340px; float: canter; margin: 5px;">
+            <div class="row no-gutters">         
+            <div class="col-md-4">    
+                  <img class="card-img-top"  src="https://st2.depositphotos.com/1001911/7684/v/450/depositphotos_76840879-stock-illustration-depressed-emoticon.jpg" alt="sad face">
+                  </div>
+            <div class="col-md-8">
+                  <div class="card-body">
+                   
+                  <p class="card-text text-dark">No results found for "${searchTerm}". Sorry. Check your spelling.</p>
+                   
+                </div>
+                </div>
+                </div>   
+                 
+            </div>
+
+
+          `;
+          $('#movie-search-list').append(thisMovieCard);
+
+        }else{
+          for (let movie of movies) {
+            console.log(movie);
+            let thisMovieCard = 
+            `
+            <div class="card mb-3" style="max-width: 340px; float: right; margin: 5px;">
+            <div class="row no-gutters">         
+            <div class="col-md-4">    
+                  <img class="card-img-top"  src="http://image.tmdb.org/t/p/w185//${movie.mediaPoster}" alt="${movie.mediaTitle}">
+                  </div>
+            <div class="col-md-8">
+                  <div class="card-body">
+                  <h5 class="card-title text-dark"">${movie.mediaTitle}</h5>
+                  <p class="card-text text-dark">${movie.movieYear}</p>
+                  <a href="#ex1" rel="modal:open" id="watchlist-button" class="btn btn-primary">Add to Watchlist</a>
+                </div>
+                </div>
+                </div>   
+                 
+            </div>
+                       
+                     
+            `;
+            $('#movie-search-list').append(thisMovieCard);
+          };
+      }
+      });
+  }
+
+
     $('#submit').on('click', () => {
       let searchTerm = $('#submit-query').val();
       queryThirdPartyAPI(searchTerm);
