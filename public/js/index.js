@@ -314,22 +314,6 @@ $(document).ready(() => {
             });
     };
 
-     
-    ///////////////////////// getMoviesByList(listId,cb) ////////// *******Working 
-    const getMoviesByList = (listId, cb) => {
-        console.log('about to get movies in list', listId);
-        $.ajax(`api/lists/${listId}/media`, {
-            method: 'GET',
-        })
-        .then(function (media) {
-                console.log('media', media);
-                cb(media);
-            })
-            .catch(function () {
-                console.log('there was an error ');
-            });
-    };
-
     ///////////////////////// createList(userId,listName) ////////// *******Working  
     const createList = (userId, listName) => {
         let newList = {
