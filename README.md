@@ -6,10 +6,20 @@
 http://www.dasflix.com/ \
 DasFlix is a CRUD MVC project by University of Arizona Students: <a href="https://github.com/azu20" target="_blank">Azucena Gonzalez</a>, <a href="https://github.com/denzgrant">Denzell Grant</a>, and <a href="https://github.com/stephenstuder">Stephen Studer</a>. Team Name: House Targaryen #FireAndBlood:fire::dragon_face:. DasFlix is a clone of a streaming service that uses TheMovieDB API and allows the user to create a watchlist. The watchlist is then populated by searching or selecting results from what's currently trending. 
 
+This project uses `passport.js` for local username and password authentication.
+Feel free to use our test login:\
+username: 1@1\
+password: 1
+
 **Warning: This site is non-streaming since we don't own the licensing rights** 
 ---
 
 ## Usage
+### Instructions
+1. Login In.
+2. Create a Watchlist.
+3. Add Items to Watchlist.
+
 Feel free to use to create watchlists and to see what's currently trending. A good tool to stay up to date with the water cooler talk. 
 
 ---
