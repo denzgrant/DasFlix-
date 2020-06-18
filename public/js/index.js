@@ -400,7 +400,7 @@ $('#search').empty();
      console.log(watchlists);
 
 
-     //let watchlistLi = `
+     //let watc = `
      
      
     }
