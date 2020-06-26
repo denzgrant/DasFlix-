@@ -15,12 +15,12 @@ password: 1
 ---
 
 ## Usage
+Feel free to use to create watchlists and to see what's currently trending. A good tool to stay up to date with the water cooler talk. 
+---
 ### Instructions
 1. Login In.
 2. Create a Watchlist.
 3. Add Items to Watchlist.
-
-Feel free to use to create watchlists and to see what's currently trending. A good tool to stay up to date with the water cooler talk. 
 
 ---
 
