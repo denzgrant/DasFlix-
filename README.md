@@ -15,7 +15,8 @@ password: 1
 ---
 
 ## Usage
-Feel free to use to create watchlists and to see what's currently trending. A good tool to stay up to date with the water cooler talk. 
+
+<p>Feel free to use to create watchlists and to see what's currently trending. A good tool to stay up to date with the water cooler talk.</p>
 ---
 ### Instructions
 1. Login In.
