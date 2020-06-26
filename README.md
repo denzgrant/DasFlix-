@@ -20,7 +20,7 @@ password: 1
 3. Add Items to Watchlist.
 
 
-<img src="../images/dasflix.gif" alt="demogif">  
+<img src="/public/assets/images/dasflix.gif" alt="demogif">  
 
 ---
 
