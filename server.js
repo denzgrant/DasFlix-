@@ -10,7 +10,9 @@ const mediumController = require("./controller/medium-controller");
 const providerController = require("./controller/provider-controller");
 const listController = require("./controller/list-controller");
 const thirdPartyController = require("./controller/third_api-controller");
-console.log(process.env.REACT_APP_GOOGLE_API_KEY)
+const APIKEY = process.env.APIKEY;
+
+console.log(APIKEY);
 
 const db = require("./models");
 
