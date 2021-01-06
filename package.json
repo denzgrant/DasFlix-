@@ -20,7 +20,7 @@
   "dependencies": {
     "@glidejs/glide": "^3.4.1",
     "@handlebars/allow-prototype-access": "^1.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.5",
